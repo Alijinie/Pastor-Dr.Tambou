@@ -68,6 +68,19 @@
         .fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
         .delay-100 { animation-delay: 0.1s; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        /* Add this inside your existing <style> tag */
+@keyframes scroll-infinite {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.scroll-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-infinite 30s linear infinite;
+}
+/* Optional: Pause the animation when the user hovers over it */
+
+}
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-studio-purple selection:text-white overflow-x-hidden">
@@ -175,6 +188,50 @@
                 </div>
             </div>
         </section>
+        
+
+        <section class="mt-20 fade-up delay-200 relative w-full overflow-hidden rounded-2xl glass-card py-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
+            
+            <div class="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0a0a0c] to-transparent z-10 pointer-events-none rounded-l-2xl"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#0a0a0c] to-transparent z-10 pointer-events-none rounded-r-2xl"></div>
+
+            <div class="scroll-track gap-10 md:gap-16 px-8 items-center cursor-default">
+                
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-cross text-studio-cyan text-lg"></i> Redeemed Christian Theological College
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-scroll text-studio-purple text-lg"></i> Hebrew Linguistic Instruction
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-brain text-studio-cyan text-lg"></i> Peak Performance Psychology
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-futbol text-studio-purple text-lg"></i> Certified Soccer Coaching
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-book-open text-studio-cyan text-lg"></i> Published Author
+                </div>
+
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-cross text-studio-cyan text-lg"></i> Redeemed Christian Theological College
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-scroll text-studio-purple text-lg"></i> Hebrew Linguistic Instruction
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-brain text-studio-cyan text-lg"></i> Peak Performance Psychology
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-futbol text-studio-purple text-lg"></i> Certified Soccer Coaching
+                </div>
+                <div class="flex items-center gap-3 text-white/70 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                    <i class="fa-solid fa-book-open text-studio-cyan text-lg"></i> Published Author
+                </div>
+
+            </div>
+        </section>
+    
     </main>
 
     <div id="product-modal" class="fixed inset-0 z-50 hidden flex items-end md:items-center justify-center sm:p-4" aria-modal="true">
