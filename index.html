@@ -325,9 +325,9 @@
             
             <div class="relative w-full md:w-1/2 h-56 md:h-auto min-h-[220px] bg-black flex items-center justify-center p-6 border-b md:border-b-0 md:border-r border-white/5 overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-br from-studio-cyan/20 to-studio-purple/20 blur-xl opacity-50"></div>
-                <div id="modal-icon-container" class="relative z-10 drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]">
-                    <img id="modal-icon" src="" alt="Service Display" class="w-full h-full object-contain">
-                </div>
+                <div id="modal-icon-container" class="relative z-10 drop-shadow-[0_0_15px_rgba(6,182,212,0.5)] w-full h-full flex items-center justify-center">
+    <img id="modal-icon" src="" alt="Service Display" class="max-w-full max-h-full object-fill object-center rounded-lg">
+</div>
                 <button onclick="closeModal()" class="absolute top-4 right-4 md:hidden z-20 bg-white/10 hover:bg-white/20 text-white w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md border border-white/10 transition-colors">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
@@ -446,7 +446,16 @@
                 stats: ["Guidance", "Leadership", "Faith"],
                 desc: "Life coaching, pastoral mentorship, and public speaking engagements tailored to uplift, educate, and inspire individuals across academic and athletic disciplines.",
                 deliverables: "Conference Speaking, Pastoral Counseling, Youth Mentorship, Leadership Training."
-            }
+            },
+            {
+        title: "Marriage Counseling",
+        tagline: "Biblical principles for marital stability",
+        tag: "COUNSELING",
+        icon: "16.jpg", 
+        stats: ["Guidance", "Mediation", "Faith"],
+        desc: "Providing faith-based counseling to couples, drawing on deep biblical principles and psychological understanding to resolve conflicts and strengthen marital bonds.",
+        deliverables: "Pre-marital Counseling, Conflict Resolution, Couples Therapy."
+    }
         ];
 
         const container = document.getElementById('products-container');
