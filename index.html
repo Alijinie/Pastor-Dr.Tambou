@@ -328,7 +328,7 @@
                 <div id="modal-icon-container" class="relative z-10 drop-shadow-[0_0_15px_rgba(6,182,212,0.5)] w-full h-full flex items-center justify-center">
     <img id="modal-icon" src="" alt="Service Display" class="max-w-full max-h-full object-fill object-center rounded-lg">
 </div>
-                <button onclick="closeModal()" class="absolute top-4 right-4 md:hidden z-20 bg-white/10 hover:bg-white/20 text-white w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md border border-white/10 transition-colors">
+                <button onclick="closeModal()" class="absolute top-4 right-4 md:hidden z-20 bg-red-500/40 hover:bg-red-500/20 text-red w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md border border-red-500/30 transition-colors">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
@@ -336,7 +336,7 @@
             <div class="w-full md:w-1/2 p-5 md:p-8 flex flex-col overflow-y-auto no-scrollbar">
                 <div class="flex justify-between items-start mb-3">
                     <span id="modal-tag" class="text-[10px] font-bold tracking-widest bg-studio-purple/20 border border-studio-purple/50 text-studio-purple px-2.5 py-1 rounded shadow-sm">CATEGORY</span>
-                    <button onclick="closeModal()" class="hidden md:flex text-white/40 hover:text-white transition-colors hover:rotate-90 duration-300">
+                    <button onclick="closeModal()" class="hidden md:flex text-red-500/70 hover:text-red-500 transition-colors hover:rotate-90 duration-300">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -395,16 +395,17 @@
         const products = [
             {
                 title: "Theology Lectures",
-                tagline: "Academic instruction at the Redeemed Christian Theological College",
+                tagline: "Academic instructor at the Redeemed Christian Theological College. Books include: Systematic Theology, Exegesis and Hermeneutics",
                 tag: "ACADEMICS",
                 icon: "12.jpg",
                 stats: ["Biblical Study", "Exegesis", "Doctrine"],
                 desc: "Rigorous theological education designed to equip ministers and students with a deep, historically grounded understanding of scripture and Christian doctrine.",
                 deliverables: "College Courses, Seminars, Doctrinal Teaching, Academic Mentorship."
             },
+   
             {
                 title: "Hebrew & Greek Languages",
-                tagline: "Unlocking the original biblical text",
+                tagline: "Unlocking the original biblical text. Books include: Introduction to Hebrew, Introduction to Greek",
                 tag: "LANGUAGE",
                 icon: "t.jpg", 
                 stats: ["Vocabulary", "Grammar", "Translation"],
@@ -431,9 +432,9 @@
             },
             {
                 title: "Authored Books",
-                tagline: "Published insights on faith, mindset, and sports",
+                tagline: "Published insights on faith & mindset. Books include: Tambou Life Application Prayer Commentary, Legacy of the Twelve: Insights",
                 tag: "LITERATURE",
-                icon: "11.jpg", 
+                icon: "4.jpg", 
                 stats: ["Theology", "Psychology", "Inspiration"],
                 desc: "Explore a rich collection of published works bridging the gap between rigorous theological study and practical sports psychology.",
                 deliverables: "Paperbacks, E-books, Devotionals, Academic Papers."
@@ -455,6 +456,15 @@
         stats: ["Guidance", "Mediation", "Faith"],
         desc: "Providing faith-based counseling to couples, drawing on deep biblical principles and psychological understanding to resolve conflicts and strengthen marital bonds.",
         deliverables: "Pre-marital Counseling, Conflict Resolution, Couples Therapy."
+    },
+    {
+        title: "Academic Research Writing",
+        tagline: "Expert dissertations and papers for Sciences and Arts",
+        tag: "RESEARCH",
+        icon: "11.jpg", 
+        stats: ["Sciences", "Arts", "All Levels"],
+        desc: "Providing professional assistance in writing high-quality research papers, theses, and dissertations across both Science and Arts disciplines. Tailored academic support is available for students at every level, from Diploma programs up to Master's degrees.",
+        deliverables: "Research Papers, Master's Dissertations, Diploma Projects, Literature Reviews, Academic Editing."
     }
         ];
 
