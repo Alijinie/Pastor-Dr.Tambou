@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dredtambou.com/sitemap.xml
