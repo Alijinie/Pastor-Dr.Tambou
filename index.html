@@ -182,50 +182,171 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="products-container"></div>
         </section>
 
-        <!-- PUBLICATIONS & SELAR SECTION -->
+        <!-- PUBLICATIONS & TABBED LIBRARY SECTION -->
         <section id="publications" class="fade-up delay-200 mt-20 relative z-20">
-            <div class="glass-card rounded-3xl p-8 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
                 
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
-                    <div class="md:w-2/3">
-                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-purple/20 text-studio-purple text-[10px] font-bold tracking-wider mb-4 border border-studio-purple/30">
-                            <i class="fa-solid fa-pen-nib"></i> PUBLISHED SCHOLAR
-                        </span>
-                        <h2 class="text-3xl md:text-4xl text-white font-extrabold mb-4 leading-tight">
-                            Explore the Library of <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Pastor E.D. Tambou, PhD</span>
-                        </h2>
-                        <p class="text-white/70 text-sm md:text-base leading-relaxed mb-8 font-medium max-w-2xl">
-                            With a PhD in Religious and Cultural Studies focusing on Biblical Studies (Old Testament). Pastor E.D. Tambou brings deep theological insight into his writings. Discover his extensive collection of authored works, including <em>Tambou Life Application Prayer Commentary</em>, <em>Legacy of the Twelve: Insights from the Tribes of Israel</em>, and <em>Single Sexual Lifestyle: Global Perspective</em>.
-                        </p>
-                        <div class="flex flex-wrap items-center gap-4 pt-2">
-    <a href="https://selar.com/m/tambou-ebimobo-owei-donatus1" target="_blank" class="inline-flex items-center gap-3 bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-4 rounded-xl font-bold text-sm hover:scale-105 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(6,182,212,0.3)]">
-        <i class="fa-solid fa-book-open text-lg"></i> View Selar Book Collection
-    </a>
+                <!-- Section Header -->
+                <div class="relative z-10 mb-8 text-center md:text-left">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-purple/20 text-studio-purple text-[10px] font-bold tracking-wider mb-4 border border-studio-purple/30">
+                        <i class="fa-solid fa-pen-nib"></i> PUBLISHED SCHOLAR
+                    </span>
+                    <h2 class="text-3xl md:text-4xl text-white font-extrabold mb-4 leading-tight">
+                        Explore the Library of <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Pastor E.D. Tambou, PhD</span>
+                    </h2>
+                    <p class="text-white/70 text-sm md:text-base leading-relaxed font-medium max-w-3xl">
+                        With a PhD in Religious and Cultural Studies focusing on Biblical Studies (Old Testament), Pastor E.D. Tambou brings deep theological insight into his writings. Easily access free resources below or visit his premium Selar library.
+                    </p>
+                </div>
 
-    <a href="Tambou%20Life%20Application%20Prayer%20Commentary%20Final.pdf" download="Tambou_Life_Application_Prayer_Commentary.pdf" onclick="showDownloaded(this)" class="inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-studio-cyan/40 text-white px-8 py-4 rounded-xl font-bold text-sm hover:scale-105 hover:-translate-y-1 transition-all backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.15)] group cursor-pointer">
-        <i class="fa-solid fa-file-arrow-down text-studio-cyan text-lg group-hover:animate-bounce"></i> 
-        <span>Download a free copy of Tambou Life Application Prayer Commentary </span>
-    </a>
+                <!-- Tab Navigation Buttons -->
+                <div class="flex border-b border-white/10 mb-8 relative z-10 gap-2">
+                    <button onclick="switchLibraryTab('free-downloads')" id="tab-free-downloads-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Free Downloads
+                    </button>
+                    <button onclick="switchLibraryTab('selar-books')" id="tab-selar-books-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Premium Books (Selar)
+                    </button>
+                </div>
+
+                <!-- TAB 1: FREE DOWNLOADS -->
+                <div id="tab-free-downloads" class="space-y-8 relative z-10">
+                    <!-- Donation Callout Banner -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-gradient-to-br from-studio-card to-black/60 p-6 md:p-8 rounded-2xl border border-studio-cyan/30 shadow-inner items-center">
+                        <div class="lg:col-span-8 space-y-3">
+                            <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-circle-dollar-to-slot text-sm"></i> Support the Ministry
+                            </div>
+                            <h3 class="text-lg md:text-xl font-extrabold text-white">Support This Work with a Free-Will Offering</h3>
+                            <p class="text-white/60 text-xs md:text-sm leading-relaxed">
+                                While these materials are offered freely to empower your walk with Christ, you are warmly invited to support the propagation of the gospel and ongoing research work. Please consider making a seed donation or ministry offering.
+                            </p>
+                        </div>
+                        <div class="lg:col-span-4 flex flex-col items-center sm:items-start lg:items-end justify-center w-full">
+                            <div class="bg-black/40 p-4 rounded-xl border border-white/10 w-full flex items-center gap-4">
+                                <!-- Zenith Bank Logo SVG Render -->
+                                <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-1 shrink-0 shadow-md">
+                                    <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Zenith Bank Icon/Color Representation -->
+                                        <rect width="100" height="100" rx="15" fill="#E22127"/>
+                                        <path d="M20 75 L55 30 L30 30 L30 20 L80 20 L45 65 L70 65 L70 75 Z" fill="#FFFFFF"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-[10px] font-bold text-white/50 uppercase tracking-widest leading-none">Zenith Bank Account</p>
+                                    <p class="text-white font-extrabold text-sm tracking-wide mt-1 select-all" id="bank-acc">2007780413</p>
+                                    <p class="text-[10px] text-studio-cyan font-semibold truncate leading-none mt-0.5">E.D. Tambou</p>
+                                </div>
+                                <button onclick="copyAccountNumber()" class="bg-white/5 hover:bg-studio-cyan hover:text-white border border-white/10 w-10 h-10 rounded-lg flex items-center justify-center text-white/70 transition-all group" title="Copy Account Number">
+                                    <i id="copy-icon" class="fa-solid fa-copy text-sm group-hover:scale-110 transition-transform"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="md:w-1/3 flex justify-center w-full mt-6 md:mt-0">
-                         <div class="w-48 h-60 bg-gradient-to-br from-[#1a1a24] to-[#0a0a0c] border border-white/10 rounded-r-3xl rounded-l-md shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative flex items-center justify-center transform -rotate-6 hover:rotate-0 transition-transform duration-500 group">
-                             <div class="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-b from-studio-cyan to-studio-purple rounded-l-md opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                             <div class="absolute left-4 top-0 bottom-0 w-px bg-white/10"></div>
-                             
-                             <div class="text-center px-4">
-                                <i class="fa-solid fa-book-bible text-5xl text-studio-cyan/40 mb-4 group-hover:text-studio-cyan transition-colors duration-500 drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]"></i>
-                                <div class="w-16 h-1 bg-studio-purple/30 mx-auto rounded-full mt-2"></div>
-                             </div>
-                         </div>
+
+                    <!-- 5 Books Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Book 1 -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-studio-cyan/10 text-studio-cyan border border-studio-cyan/20">THEOLOGY</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Tambou Life Application Prayer Commentary</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-4">A profound theological work bringing key insights from the Old Testament with structural life applications and prayer guidepoints.</p>
+                            </div>
+                            <a href="Tambou%20Life%20Application%20Prayer%20Commentary%20Final.pdf" download="Tambou_Life_Application_Prayer_Commentary.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
+
+                        <!-- Book 2 -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-studio-purple/10 text-studio-purple border border-studio-purple/20">BIBLICAL HISTORY</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Legacy of the Twelve: Insights from Israel</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-4">An depth exploration study analyzing structural, linguistic, and contextual revelations regarding the tribes of Israel.</p>
+                            </div>
+                            <a href="Legacy%20of%20the%20Twelve%20Insights%20from%20the%20Tribes%20of%20Israel.pdf" download="Legacy_of_the_Twelve_Insights_from_the_Tribes_of_Israel.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
+
+                        <!-- Book 3 -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-400/10 text-amber-400 border border-amber-400/20">LIFESTYLE</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Single Sexual Lifestyle: Global Perspective</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-4">Balancing biblical purity paradigms with sociological evaluations of lifestyles from an elevated modern academic outlook.</p>
+                            </div>
+                            <a href="Single%20Sexual%20Lifestyle%20Global%20Perspective.pdf" download="Single_Sexual_Lifestyle_Global_Perspective.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
+
+                        <!-- Book 4 -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20">PRAYER</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">The Dynamics of Prophetic Intercession</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-4">Discover the theological concepts and functional systems regarding the power of programmatic prayer systems in life execution.</p>
+                            </div>
+                            <a href="The%20Dynamics%20of%20Prophetic%20Intercession.pdf" download="The_Dynamics_of_Prophetic_Intercession.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
+
+                        <!-- Book 5 -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">ACADEMICS</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">An Introduction to Biblical Hebrew Exegesis</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-4">A study-guide textbook explaining elements of basic Hebrew translations, syntax systems, and scriptural interpretation modules.</p>
+                            </div>
+                            <a href="Introduction%20to%20Biblical%20Hebrew%20Exegesis.pdf" download="Introduction_to_Biblical_Hebrew_Exegesis.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+
+                <!-- TAB 2: PREMIUM BOOKS (SELAR) -->
+                <div id="tab-selar-books" class="hidden space-y-8 relative z-10">
+                    <div class="flex flex-col lg:flex-row gap-8 items-center bg-black/40 p-6 md:p-8 rounded-2xl border border-white/5">
+                        <div class="lg:w-2/3 space-y-4">
+                            <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-orange-500/20 text-orange-400 text-[10px] font-bold tracking-wider border border-orange-500/30">
+                                <i class="fa-solid fa-store"></i> SELAR PARTNERSHIP
+                            </span>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-white">Unlock Full Digital Access on Selar</h3>
+                            <p class="text-white/70 text-sm leading-relaxed">
+                                Explore a broader variety of Dr. Tambou's scholarly books, commentary drafts, and instructional publications. Easily pay and instantly download electronic copies of premium literature through his official verified global distributor portal.
+                            </p>
+                            <div class="pt-2">
+                                <a href="https://selar.com/m/tambou-ebimobo-owei-donatus1" target="_blank" class="inline-flex items-center gap-3 bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-4 rounded-xl font-bold text-sm hover:scale-105 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(6,182,212,0.3)]">
+                                    <i class="fa-solid fa-book-open text-lg"></i> View Selar Book Collection
+                                </a>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/3 flex justify-center w-full">
+                            <div class="w-44 h-52 bg-gradient-to-br from-[#1a1a24] to-[#0a0a0c] border border-white/10 rounded-r-3xl rounded-l-md shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform duration-500 group">
+                                <div class="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-b from-studio-cyan to-studio-purple rounded-l-md opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                                <div class="absolute left-3 top-0 bottom-0 w-px bg-white/10"></div>
+                                <div class="text-center px-4">
+                                    <i class="fa-solid fa-book-bible text-4xl text-studio-cyan/40 mb-3 group-hover:text-studio-cyan transition-colors duration-500"></i>
+                                    <div class="w-12 h-1 bg-studio-purple/30 mx-auto rounded-full mt-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
-
         <!-- CONNECT DOWN ARROW -->
         <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200">
             <a href="#connect" class="group flex flex-col items-center gap-3 opacity-100 hover:opacity-100 transition-opacity duration-300">
