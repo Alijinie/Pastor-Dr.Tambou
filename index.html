@@ -682,27 +682,63 @@
             camera.updateProjectionMatrix();
             renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
         });
-        function showDownloaded(button) {
+        // Tab switching function for publications
+        function switchLibraryTab(tabId) {
+            const freeDownloadsTab = document.getElementById('tab-free-downloads');
+            const selarBooksTab = document.getElementById('tab-selar-books');
+            const freeBtn = document.getElementById('tab-free-downloads-btn');
+            const selarBtn = document.getElementById('tab-selar-books-btn');
+
+            if (tabId === 'free-downloads') {
+                freeDownloadsTab.classList.remove('hidden');
+                selarBooksTab.classList.add('hidden');
+                
+                freeBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2";
+                selarBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2";
+            } else {
+                freeDownloadsTab.classList.add('hidden');
+                selarBooksTab.classList.remove('hidden');
+                
+                selarBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2";
+                freeBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2";
+            }
+        }
+
+        // Copy Account Number with UI Feedback
+        function copyAccountNumber() {
+            const accNum = "2007780413";
+            const copyIcon = document.getElementById('copy-icon');
+            
+            navigator.clipboard.writeText(accNum).then(() => {
+                copyIcon.className = "fa-solid fa-check text-emerald-400 text-sm";
+                
+                setTimeout(() => {
+                    copyIcon.className = "fa-solid fa-copy text-sm";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy account details: ', err);
+            });
+        }
+
+        // Custom Book Download State Manager
+        function handleBookDownload(button) {
             const textSpan = button.querySelector('span');
             const icon = button.querySelector('i');
             
             if (!textSpan || !icon) return;
 
-            // Store the original text and icon
             const originalText = textSpan.innerText;
             const originalIcon = icon.className;
 
-            // Change to "Downloaded" state with a green checkmark
             textSpan.innerText = "Downloaded!";
-            icon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+            icon.className = "fa-solid fa-circle-check text-emerald-400 text-sm";
             button.classList.add("border-emerald-400/60", "bg-emerald-500/10");
 
-            // Revert back to normal after 3 seconds (3000 milliseconds)
             setTimeout(() => {
                 textSpan.innerText = originalText;
                 icon.className = originalIcon;
                 button.classList.remove("border-emerald-400/60", "bg-emerald-500/10");
-            }, 3000);
+            }, 3500);
         }
     </script>
 </body>
