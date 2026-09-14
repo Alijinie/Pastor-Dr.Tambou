@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pastor Dr. Tambou Donatus | Theology, Hebrew & Sports Psychology</title>
     <meta name="title" content="Pastor Dr. Tambou Donatus | Theology, Hebrew & Sports Psychology">
-    <meta name="description" content="Discover holistic development with Pastor Dr. Tambou Donatus. Bridging mind, body, and spirit through theology, Hebrew, sports psychology, and coaching.">
+    <meta name="description" content="Discover holistic development with Pastor Dr. Tambou Donatus. Bridging mind, body, and spirit through theology, Hebrew, sports psychology, and coaching. Free books, student course materials, sermons, and mentorship.">
     <link rel="icon" type="image/jpeg" href="https://dredtambou.com/t.jpg">
     <link rel="canonical" href="https://dredtambou.com/">
 
@@ -30,7 +30,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -45,7 +45,7 @@
                             purple: '#8B5CF6',
                         }
                     },
-                    fontFamily: { sans: ['Outfit', 'sans-serif'] }
+                    fontFamily: { sans: ['Outfit', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
                 }
             }
         }
@@ -62,12 +62,15 @@
             border: 1px solid rgba(6, 182, 212, 0.15);
             backdrop-filter: blur(10px);
         }
+        .verse-card {
+            background: linear-gradient(135deg, rgba(6,182,212,0.08), rgba(139,92,246,0.08));
+            border-left: 3px solid #06b6d4;
+        }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
         .delay-100 { animation-delay: 0.1s; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        
         @keyframes scroll-infinite {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -77,9 +80,21 @@
             width: max-content;
             animation: scroll-infinite 30s linear infinite;
         }
-        .scroll-track:hover {
-            animation-play-state: paused;
+        .scroll-track:hover { animation-play-state: paused; }
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 11px;
+            height: 11px;
+            border-radius: 9999px;
+            background: linear-gradient(to right, #06b6d4, #8B5CF6);
+            box-shadow: 0 0 12px rgba(6,182,212,0.6);
         }
+        details.faq-item summary::-webkit-details-marker { display: none; }
+        details.faq-item[open] .faq-chevron { transform: rotate(180deg); }
+        .faq-chevron { transition: transform 0.3s ease; }
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-studio-purple selection:text-white overflow-x-hidden">
@@ -89,10 +104,61 @@
         <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-studio-purple/10 rounded-full blur-[120px]"></div>
     </div>
 
-    <main class="flex-1 pt-12 pb-32 px-4 md:px-8 max-w-7xl mx-auto w-full">
+    <!-- TOP VERSE TICKER -->
+    <div class="w-full bg-gradient-to-r from-studio-cyan/20 via-studio-purple/20 to-studio-cyan/20 border-b border-white/10 py-2 px-4 text-center relative z-40">
+        <p class="text-[11px] md:text-xs text-white/80 font-medium tracking-wide">
+            <i class="fa-solid fa-book-bible text-studio-cyan mr-2"></i>
+            <span class="font-serif italic">"For Ezra had prepared his heart to seek the Law of the LORD, and to do it, and to teach..."</span>
+            <span class="text-studio-cyan font-bold ml-1">— Ezra 7:10 (NKJV)</span>
+        </p>
+    </div>
+
+    <!-- STICKY NAV -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0a0a0c]/85 border-b border-white/10">
+        <nav class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between gap-3">
+            <a href="#top" class="flex items-center gap-3 shrink-0">
+                <img src="t.jpg" alt="Dr Tambou" class="w-10 h-10 rounded-full object-cover border-2 border-studio-cyan/40">
+                <div class="leading-tight">
+                    <p class="text-white font-extrabold text-sm">Pastor E.D. Tambou, PhD</p>
+                    <p class="text-studio-cyan text-[10px] font-bold tracking-widest uppercase">The Reborn Ezra</p>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-6 text-[13px] font-bold text-white/70">
+                <a href="#about-section" class="hover:text-studio-cyan transition-colors">About</a>
+                <a href="#services-grid" class="hover:text-studio-cyan transition-colors">Expertise</a>
+                <a href="#publications" class="hover:text-studio-cyan transition-colors">Library</a>
+                <a href="#student-resources" class="hover:text-studio-cyan transition-colors flex items-center gap-1"><i class="fa-solid fa-graduation-cap text-studio-purple"></i> Student Resources</a>
+                <a href="#journey" class="hover:text-studio-cyan transition-colors">Journey</a>
+                <a href="#faq" class="hover:text-studio-cyan transition-colors">FAQ</a>
+                <a href="#connect" class="hover:text-studio-cyan transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I%20found%20your%20website." target="_blank" class="hidden sm:inline-flex bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-5 py-2 rounded-full font-bold text-xs hover:scale-105 transition-transform">
+                    <i class="fa-brands fa-whatsapp mr-2 mt-0.5"></i> Chat
+                </a>
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
+            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/80">
+                <a href="#about-section" class="glass-card rounded-xl p-3 text-center">About</a>
+                <a href="#services-grid" class="glass-card rounded-xl p-3 text-center">Expertise</a>
+                <a href="#publications" class="glass-card rounded-xl p-3 text-center">Library</a>
+                <a href="#student-resources" class="glass-card rounded-xl p-3 text-center text-studio-cyan">Student Resources</a>
+                <a href="#journey" class="glass-card rounded-xl p-3 text-center">Journey</a>
+                <a href="#faq" class="glass-card rounded-xl p-3 text-center">FAQ</a>
+                <a href="#testimonies" class="glass-card rounded-xl p-3 text-center">Testimonies</a>
+                <a href="#connect" class="glass-card rounded-xl p-3 text-center">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="top" class="flex-1 pt-8 pb-32 px-4 md:px-8 max-w-7xl mx-auto w-full">
         
         <!-- HERO SECTION -->
-        <section class="fade-up mb-16">
+        <section class="fade-up mb-8">
             <div class="relative rounded-3xl overflow-hidden glass-card min-h-[450px] flex flex-col md:flex-row items-center border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="p-8 md:p-12 md:w-1/2 z-20 flex flex-col items-start justify-center h-full pointer-events-none">
@@ -102,11 +168,15 @@
                     </span>
                     <h1 class="text-4xl text-white md:text-5xl lg:text-5xl font-extrabold leading-[1.1] mb-4">
                         Pastor E.D Tambou, PhD <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple"></span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple font-serif italic text-3xl md:text-4xl">The Reborn Ezra</span>
                     </h1>
-                    <p class="text-studio-text/70 text-sm md:text-base mb-8 max-w-md leading-relaxed font-medium">
+                    <p class="text-studio-text/70 text-sm md:text-base mb-4 max-w-md leading-relaxed font-medium">
                         Bridging the mind, body, and spirit. PhD holder in Religious and Cultural Studies, Director of Academic Planning at the Redeemed Christian Theological College, accomplished Author, and certified Sports Coach.
                     </p>
+                    <div class="verse-card rounded-xl p-4 mb-6 max-w-md pointer-events-auto">
+                        <p class="font-serif italic text-white/90 text-sm leading-relaxed">"Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."</p>
+                        <p class="text-studio-cyan text-[11px] font-bold mt-2 tracking-widest uppercase">— 2 Timothy 2:15 (KJV)</p>
+                    </div>
                     <div class="flex gap-4 pointer-events-auto flex-wrap">
                         <button onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.3)]">
                             Explore Expertise
@@ -114,6 +184,14 @@
                         <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I'd%20like%20a%20copy%20of%20your%20C.V." target="_blank" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform backdrop-blur-md flex items-center gap-2">
                             <i class="fa-solid fa-file-arrow-down"></i> Download C.V.
                         </a>
+                        <a href="#student-resources" class="bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap"></i> Student Portal
+                        </a>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-6 text-[10px] font-bold text-white/60">
+                        <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> RCCG Ordained Pastor</span>
+                        <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> PhD, UniPort</span>
+                        <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> NIS Certified Coach</span>
                     </div>
                 </div>
                 <div class="md:w-1/2 w-full h-64 md:h-full relative overflow-hidden bg-white/5">
@@ -122,6 +200,43 @@
                 </div>
                 <div id="canvas-container" class="absolute inset-0 md:relative md:w-1/2 w-full h-[300px] md:h-full z-10"></div>
             </div>
+            <!-- HERO QUICK FACTS -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+                <div class="glass-card rounded-2xl p-4 text-center">
+                    <p class="text-2xl font-extrabold text-white"><span class="counter" data-target="15">0</span>+</p>
+                    <p class="text-[11px] font-bold text-white/60 uppercase tracking-widest mt-1">Years in Ministry & Teaching</p>
+                </div>
+                <div class="glass-card rounded-2xl p-4 text-center">
+                    <p class="text-2xl font-extrabold text-white"><span class="counter" data-target="8">0</span>+</p>
+                    <p class="text-[11px] font-bold text-white/60 uppercase tracking-widest mt-1">Published Books & Papers</p>
+                </div>
+                <div class="glass-card rounded-2xl p-4 text-center">
+                    <p class="text-2xl font-extrabold text-white"><span class="counter" data-target="500">0</span>+</p>
+                    <p class="text-[11px] font-bold text-white/60 uppercase tracking-widest mt-1">Students Mentored</p>
+                </div>
+                <div class="glass-card rounded-2xl p-4 text-center">
+                    <p class="text-2xl font-extrabold text-white"><span class="counter" data-target="3">0</span></p>
+                    <p class="text-[11px] font-bold text-white/60 uppercase tracking-widest mt-1">Disciplines: Spirit, Mind, Body</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAILY WORD ROTATOR -->
+        <section class="fade-up mb-16 relative z-20">
+            <div class="glass-card rounded-2xl p-6 md:p-8 border border-amber-400/20 flex flex-col md:flex-row items-start md:items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-400/15 border border-amber-400/30 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-quote-left text-amber-300 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-[10px] font-bold tracking-widest uppercase text-amber-300 mb-1">Daily Word of Encouragement <span id="verse-counter" class="text-white/40 ml-2">1 / 5</span></p>
+                    <p id="rotating-verse-text" class="font-serif italic text-white text-base md:text-lg leading-relaxed transition-opacity duration-500">"Thy word is a lamp unto my feet, and a light unto my path."</p>
+                    <p id="rotating-verse-ref" class="text-studio-cyan text-xs font-bold mt-2 tracking-wider uppercase">— Psalm 119:105</p>
+                </div>
+                <div class="flex gap-2 shrink-0">
+                    <button onclick="rotateVerse(-1)" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-studio-cyan hover:border-studio-cyan transition-all"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                    <button onclick="rotateVerse(1)" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-studio-cyan hover:border-studio-cyan transition-all"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                </div>
+            </div>
         </section>
 
         <!-- NEW ABOUT SECTION -->
@@ -129,7 +244,7 @@
             <div class="glass-card rounded-3xl p-8 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-purple/5 relative overflow-hidden">
                 <div class="absolute right-[-10%] top-[-10%] w-[300px] h-[300px] bg-studio-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
 
-                <div class="flex flex-col lg:flex-row gap-10 items-center relative z-10">
+                <div class="flex flex-col lg:flex-row gap-10 items-start relative z-10">
                     <div class="w-full lg:w-2/3">
                         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-purple/20 text-studio-purple text-[10px] font-bold tracking-wider mb-4 border border-studio-purple/30">
                             <i class="fa-solid fa-user-tie"></i> MEET THE REBORN EZRA
@@ -152,16 +267,76 @@
                                 Beyond theology, Dr. E.D Tambou is also a Certified Sports Psychologist, Football Coach, and Physical Fitness Coach, reflecting his belief in holistic development—nurturing both spiritual and physical well-being. He is married to Dcns. A. Nkeonyeasua with male and female children.
                             </p>
                         </div>
+
+                        <div class="verse-card rounded-xl p-4 mt-6">
+                            <p class="font-serif italic text-white/90 text-sm">"For Ezra had prepared his heart to seek the Law of the LORD, and to do it, and to teach statutes and ordinances in Israel."</p>
+                            <p class="text-studio-cyan text-[11px] font-bold mt-2 tracking-widest uppercase">— Ezra 7:10 (NKJV) · The Life Verse of the Reborn Ezra</p>
+                        </div>
+
+                        <!-- Education & Roles -->
+                        <div class="grid sm:grid-cols-2 gap-3 mt-6">
+                            <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                                <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan mb-2"><i class="fa-solid fa-graduation-cap mr-1"></i> Education</p>
+                                <ul class="text-xs text-white/70 space-y-1.5 font-medium">
+                                    <li>• PhD, Religious & Cultural Studies — University of Port Harcourt</li>
+                                    <li>• Focus: Biblical Studies (Old Testament)</li>
+                                    <li>• Elementary Hebrew & Greek Linguistics</li>
+                                </ul>
+                            </div>
+                            <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                                <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple mb-2"><i class="fa-solid fa-briefcase mr-1"></i> Current Roles</p>
+                                <ul class="text-xs text-white/70 space-y-1.5 font-medium">
+                                    <li>• Director of Academic Planning, RCTC</li>
+                                    <li>• Lecturer, Redeemed Christian Theological College</li>
+                                    <li>• RCCG Ordained Pastor · Sports Psychologist · NIS Football Coach</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Mission / Vision / Pillars -->
+                        <div class="grid sm:grid-cols-3 gap-3 mt-3">
+                            <div class="rounded-2xl p-4 bg-studio-cyan/10 border border-studio-cyan/20">
+                                <i class="fa-solid fa-bullseye text-studio-cyan mb-2"></i>
+                                <h4 class="text-white font-extrabold text-sm mb-1">Mission</h4>
+                                <p class="text-[11px] text-white/60 leading-relaxed">To restore truth, purity and revival through sound doctrine, prayer, and holistic training.</p>
+                            </div>
+                            <div class="rounded-2xl p-4 bg-studio-purple/10 border border-studio-purple/20">
+                                <i class="fa-solid fa-eye text-studio-purple mb-2"></i>
+                                <h4 class="text-white font-extrabold text-sm mb-1">Vision</h4>
+                                <p class="text-[11px] text-white/60 leading-relaxed">Raising ministers and athletes who are spiritually grounded, mentally strong, and physically fit.</p>
+                            </div>
+                            <div class="rounded-2xl p-4 bg-amber-400/10 border border-amber-400/20">
+                                <i class="fa-solid fa-heart text-amber-300 mb-2"></i>
+                                <h4 class="text-white font-extrabold text-sm mb-1">Family</h4>
+                                <p class="text-[11px] text-white/60 leading-relaxed">Married to Dcns. A. Nkeonyeasua, blessed with sons and daughters. Ministry begins at home.</p>
+                                <p class="text-[10px] text-amber-200/70 italic mt-1">"As for me and my house, we will serve the LORD." — Josh. 24:15</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="w-full lg:w-1/3 flex flex-col justify-center items-center p-8 bg-black/40 rounded-2xl border border-white/5 relative">
-                        <i class="fa-solid fa-quote-left text-5xl text-studio-cyan/20 absolute top-4 left-4"></i>
-                        <div class="text-center z-10 mt-4">
-                            <i class="fa-solid fa-fire-flame-curved text-4xl text-studio-purple mb-4 drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]"></i>
-                            <h3 class="text-xl text-white font-bold mb-2">The Reborn Ezra</h3>
-                            <p class="text-white/60 italic text-sm">
-                                "Restoring truth, purity, and revival through sound teaching and prayer."
-                            </p>
+                    <div class="w-full lg:w-1/3 flex flex-col gap-4">
+                        <div class="flex flex-col justify-center items-center p-8 bg-black/40 rounded-2xl border border-white/5 relative">
+                            <i class="fa-solid fa-quote-left text-5xl text-studio-cyan/20 absolute top-4 left-4"></i>
+                            <div class="text-center z-10 mt-4">
+                                <i class="fa-solid fa-fire-flame-curved text-4xl text-studio-purple mb-4 drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]"></i>
+                                <h3 class="text-xl text-white font-bold mb-2">The Reborn Ezra</h3>
+                                <p class="text-white/60 italic text-sm">
+                                    "Restoring truth, purity, and revival through sound teaching and prayer."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-black/40 rounded-2xl p-5 border border-studio-cyan/20">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan mb-3"><i class="fa-solid fa-location-dot mr-1"></i> Where to find him</p>
+                            <ul class="text-xs text-white/70 space-y-2 font-medium">
+                                <li><i class="fa-solid fa-church text-studio-purple w-5"></i> Redeemed Christian Theological College, Redemption City, Ogun State</li>
+                                <li><i class="fa-solid fa-clock text-studio-purple w-5"></i> Office hours: Mon–Fri, 9am–4pm (by appointment)</li>
+                                <li><i class="fa-solid fa-envelope text-studio-purple w-5"></i> donatustambou3@gmail.com</li>
+                                <li><i class="fa-solid fa-phone text-studio-purple w-5"></i> +234 816 576 6998</li>
+                            </ul>
+                            <div class="verse-card rounded-lg p-3 mt-4">
+                                <p class="text-[11px] italic font-serif text-white/80">"And I will give you pastors according to mine heart, which shall feed you with knowledge and understanding."</p>
+                                <p class="text-[10px] font-bold text-studio-cyan mt-1 tracking-widest">— JEREMIAH 3:15</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,21 +344,47 @@
         </section>
 
         <!-- SERVICES / EXPERTISE GRID -->
-        <section id="services-grid" class="fade-up delay-100 relative z-20">
-            <div class="glass-card rounded-2xl p-6 md:p-8 mb-10 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
-                <h2 class="text-2xl md:text-3xl text-white font-extrabold tracking-tight">
-                    Areas of <span class="text-studio-cyan">Expertise</span>
-                </h2>
-                <p class="text-studio-purple font-bold text-xs md:text-sm mt-1.5 uppercase tracking-wider">
-                    Click any of the options below
-                </p>
+        <section id="services-grid" class="fade-up delay-100 relative z-20 scroll-mt-24">
+            <div class="glass-card rounded-2xl p-6 md:p-8 mb-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl text-white font-extrabold tracking-tight">
+                            Areas of <span class="text-studio-cyan">Expertise</span>
+                        </h2>
+                        <p class="text-studio-purple font-bold text-xs md:text-sm mt-1.5 uppercase tracking-wider">
+                            Click any of the options below
+                        </p>
+                    </div>
+                    <div class="verse-card rounded-xl px-4 py-3 max-w-md">
+                        <p class="font-serif italic text-white/85 text-xs">"And whatsoever ye do, do it heartily, as to the Lord, and not unto men."</p>
+                        <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— COLOSSIANS 3:23</p>
+                    </div>
+                </div>
+                <!-- Holistic model strip -->
+                <div class="grid grid-cols-3 gap-2 md:gap-3 mt-6 text-center">
+                    <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+                        <i class="fa-solid fa-cross text-studio-cyan text-lg mb-1"></i>
+                        <p class="text-white font-bold text-xs">SPIRIT</p>
+                        <p class="text-[10px] text-white/50">Theology · Prayer · Pastoral care</p>
+                    </div>
+                    <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+                        <i class="fa-solid fa-brain text-studio-purple text-lg mb-1"></i>
+                        <p class="text-white font-bold text-xs">MIND</p>
+                        <p class="text-[10px] text-white/50">Psychology · Hebrew & Greek · Research</p>
+                    </div>
+                    <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+                        <i class="fa-solid fa-person-running text-emerald-400 text-lg mb-1"></i>
+                        <p class="text-white font-bold text-xs">BODY</p>
+                        <p class="text-[10px] text-white/50">Coaching · Fitness · Discipline</p>
+                    </div>
+                </div>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="products-container"></div>
         </section>
 
         <!-- PUBLICATIONS & TABBED LIBRARY SECTION -->
-        <section id="publications" class="fade-up delay-200 mt-20 relative z-20">
+        <section id="publications" class="fade-up delay-200 mt-20 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
                 
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -199,16 +400,23 @@
                     <p class="text-white/70 text-sm md:text-base leading-relaxed font-medium max-w-3xl">
                         With a PhD in Religious and Cultural Studies focusing on Biblical Studies (Old Testament), Pastor E.D. Tambou brings deep theological insight into his writings. Easily access free resources below or visit his premium Selar library.
                     </p>
+                    <div class="verse-card rounded-xl p-4 mt-4 max-w-3xl">
+                        <p class="font-serif italic text-white/90 text-sm">"Thy word is a lamp unto my feet, and a light unto my path. All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness."</p>
+                        <p class="text-studio-cyan text-[11px] font-bold mt-2 tracking-widest uppercase">— Psalm 119:105 & 2 Timothy 3:16</p>
+                    </div>
                 </div>
 
                 <!-- Tab Navigation Buttons -->
-                <div class="flex border-b border-white/10 mb-8 relative z-10 gap-2">
-                    <button onclick="switchLibraryTab('free-downloads')" id="tab-free-downloads-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2">
+                <div class="flex border-b border-white/10 mb-8 relative z-10 gap-2 overflow-x-auto no-scrollbar">
+                    <button onclick="switchLibraryTab('free-downloads')" id="tab-free-downloads-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-cloud-arrow-down"></i> Free Downloads
                     </button>
-                    <button onclick="switchLibraryTab('selar-books')" id="tab-selar-books-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2">
+                    <button onclick="switchLibraryTab('selar-books')" id="tab-selar-books-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-book-open"></i> Premium Books (Selar)
                     </button>
+                    <a href="#student-resources" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-amber-300/80 hover:text-amber-300 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-graduation-cap"></i> Student Materials →
+                    </a>
                 </div>
 
                 <!-- TAB 1: FREE DOWNLOADS -->
@@ -223,13 +431,13 @@
                             <p class="text-white/60 text-xs md:text-sm leading-relaxed">
                                 While these materials are offered freely to empower your walk with Christ, you are warmly invited to support the propagation of the gospel and ongoing research work. Please consider making a seed donation or ministry offering.
                             </p>
+                            <p class="text-[11px] italic font-serif text-white/50">"Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver." — 2 Cor. 9:7</p>
                         </div>
                         <div class="lg:col-span-4 flex flex-col items-center sm:items-start lg:items-end justify-center w-full">
                             <div class="bg-black/40 p-4 rounded-xl border border-white/10 w-full flex items-center gap-4">
                                 <!-- Zenith Bank Logo SVG Render -->
                                 <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-1 shrink-0 shadow-md">
                                     <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Zenith Bank Icon/Color Representation -->
                                         <rect width="100" height="100" rx="15" fill="#E22127"/>
                                         <path d="M20 75 L55 30 L30 30 L30 20 L80 20 L45 65 L70 65 L70 75 Z" fill="#FFFFFF"/>
                                     </svg>
@@ -246,14 +454,15 @@
                         </div>
                     </div>
 
-                    <!-- 5 Books Grid -->
+                    <!-- Books Grid — all original file paths preserved -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- Book 1 -->
                         <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
                             <div>
                                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-studio-cyan/10 text-studio-cyan border border-studio-cyan/20">THEOLOGY</span>
                                 <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Tambou Life Application Prayer Commentary</h4>
-                                <p class="text-white/60 text-xs line-clamp-3 mb-4">A profound theological work bringing key insights from the Old Testament with structural life applications and prayer guidepoints.</p>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">A profound theological work bringing key insights from the Old Testament with structural life applications and prayer guidepoints.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"Pray without ceasing." — 1 Thess. 5:17</p>
                             </div>
                             <a href="Tambou%20Life%20Application%20Prayer%20Commentary%20Final.pdf" download="Tambou_Life_Application_Prayer_Commentary.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
                                 <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
@@ -266,7 +475,8 @@
                             <div>
                                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-studio-purple/10 text-studio-purple border border-studio-purple/20">BIBLICAL HISTORY</span>
                                 <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Legacy of the Twelve: Insights from Israel</h4>
-                                <p class="text-white/60 text-xs line-clamp-3 mb-4">An depth exploration study analyzing structural, linguistic, and contextual revelations regarding the tribes of Israel.</p>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">An depth exploration study analyzing structural, linguistic, and contextual revelations regarding the tribes of Israel.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"All these are the twelve tribes of Israel." — Gen. 49:28</p>
                             </div>
                             <a href="LEGACY%20OF%20THE%20TWELVE.pdf" download="Legacy_of_the_Twelve_Insights_from_the_Tribes_of_Israel.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
                                 <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
@@ -279,7 +489,8 @@
                             <div>
                                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-400/10 text-amber-400 border border-amber-400/20">LIFESTYLE</span>
                                 <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Single Sexual Lifestyle: Global Perspective</h4>
-                                <p class="text-white/60 text-xs line-clamp-3 mb-4">Balancing biblical purity paradigms with sociological evaluations of lifestyles from an elevated modern academic outlook.</p>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">Balancing biblical purity paradigms with sociological evaluations of lifestyles from an elevated modern academic outlook.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"Flee also youthful lusts." — 2 Tim. 2:22</p>
                             </div>
                             <a href="THE%20SINGLE%20SEXU.pdf" download="Single_Sexual_Lifestyle_Global_Perspective.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
                                 <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
@@ -292,7 +503,8 @@
                             <div>
                                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20">PRAYER</span>
                                 <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">The 3 Most Common Habits of a Christian</h4>
-                                <p class="text-white/60 text-xs line-clamp-3 mb-4">Discover the theological concepts and functional systems regarding the power of programmatic prayer systems in life execution.</p>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">Discover the theological concepts and functional systems regarding the power of programmatic prayer systems in life execution.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"Men ought always to pray, and not to faint." — Luke 18:1</p>
                             </div>
                             <a href="THE%203%20MOST%20HABITS%20OF%20A%20CHRISTIAN.pdf" download="The_Dynamics_of_Prophetic_Intercession.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
                                 <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
@@ -305,7 +517,8 @@
                             <div>
                                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">ACADEMICS</span>
                                 <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Archeology and the chapters of the Bible</h4>
-                                <p class="text-white/60 text-xs line-clamp-3 mb-4">A study-guide textbook explaining historical artefacts of Biblical lands and scriptural interpretation modules.</p>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">A study-guide textbook explaining historical artefacts of Biblical lands and scriptural interpretation modules.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"Ye shall know the truth, and the truth shall make you free." — John 8:32</p>
                             </div>
                             <a href="ARCHAEOLOGY%20AND%20THE%20CHAPTERS%20OF%20THE%20BIBLE%20FINAL%20VERSION.pdf" download="Introduction_to_Biblical_Hebrew_Exegesis.pdf" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
                                 <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
@@ -313,46 +526,54 @@
                             </a>
                         </div>
 
-                        <!-- Book 1: Altar Before Walls -->
-<div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
-    <div>
-        <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">RELIGION</span>
-        <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Altar Before Walls</h4>
-        <p class="text-white/60 text-xs line-clamp-3 mb-4">Authored by Pastor Dr. E.D Tambou.</p>
-    </div>
-    <a href="Altar_Before_Walls_Pastor_Dr_ED_Tambou.docx" download="Altar_Before_Walls_Pastor_Dr_ED_Tambou.docx" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
-        <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
-        <span>Download Free Copy</span>
-    </a>
-</div>
+                        <!-- Book: Altar Before Walls -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">RELIGION</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Altar Before Walls</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">Authored by Pastor Dr. E.D Tambou. Build God first before building walls — priorities of revival.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"Build me an altar of earth." — Ex. 20:24</p>
+                            </div>
+                            <a href="Altar_Before_Walls_Pastor_Dr_ED_Tambou.docx" download="Altar_Before_Walls_Pastor_Dr_ED_Tambou.docx" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
 
-<!-- Book 2: Behold The Nail -->
-<div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
-    <div>
-        <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">THEOLOGY</span>
-        <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Behold The Nail, Behold The Hand</h4>
-        <p class="text-white/60 text-xs line-clamp-3 mb-4">A detailed study into the ultimate redemption.</p>
-    </div>
-    <a href="BEHOLD_THE_NAIL_BEHOLD_THE_HAND_ULTIMATE_REDEMPTION.docx" download="BEHOLD_THE_NAIL_BEHOLD_THE_HAND_ULTIMATE_REDEMPTION.docx" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
-        <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
-        <span>Download Free Copy</span>
-    </a>
-</div>
+                        <!-- Book: Behold The Nail -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">THEOLOGY</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Behold The Nail, Behold The Hand</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">A detailed study into the ultimate redemption through the pierced hands of Christ.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"Behold my hands and my feet." — Luke 24:39</p>
+                            </div>
+                            <a href="BEHOLD_THE_NAIL_BEHOLD_THE_HAND_ULTIMATE_REDEMPTION.docx" download="BEHOLD_THE_NAIL_BEHOLD_THE_HAND_ULTIMATE_REDEMPTION.docx" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
 
-<!-- Book 3: Created In The Image Of God -->
-<div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
-    <div>
-        <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">ACADEMICS</span>
-        <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Created In The Image Of God</h4>
-        <p class="text-white/60 text-xs line-clamp-3 mb-4">A comprehensive 50-page book study.</p>
-    </div>
-    <a href="CREATED_IN_THE_IMAGE_OF_GOD_50_PAGE_BOOK_APA7.docx" download="CREATED_IN_THE_IMAGE_OF_GOD_50_PAGE_BOOK_APA7.docx" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
-        <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
-        <span>Download Free Copy</span>
-    </a>
-</div>
+                        <!-- Book: Created In The Image Of God -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-studio-cyan/30 transition-colors">
+                            <div>
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">ACADEMICS</span>
+                                <h4 class="text-base text-white font-extrabold mt-3 mb-2 line-clamp-2">Created In The Image Of God</h4>
+                                <p class="text-white/60 text-xs line-clamp-3 mb-2">A comprehensive 50-page book study on identity, dignity, and divine purpose.</p>
+                                <p class="text-[11px] italic font-serif text-studio-cyan/80 mb-4">"So God created man in his own image." — Gen. 1:27</p>
+                            </div>
+                            <a href="CREATED_IN_THE_IMAGE_OF_GOD_50_PAGE_BOOK_APA7.docx" download="CREATED_IN_THE_IMAGE_OF_GOD_50_PAGE_BOOK_APA7.docx" onclick="handleBookDownload(this)" class="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-studio-cyan/20 border border-studio-cyan/40 text-white py-3 rounded-xl font-bold text-xs hover:scale-[1.02] transition-all group">
+                                <i class="fa-solid fa-file-arrow-down text-studio-cyan group-hover:animate-bounce"></i> 
+                                <span>Download Free Copy</span>
+                            </a>
+                        </div>
 
-                        
+                        <!-- How to cite -->
+                        <div class="glass-card p-5 rounded-2xl border border-dashed border-studio-purple/40 flex flex-col justify-center">
+                            <h4 class="text-white font-extrabold text-sm mb-2"><i class="fa-solid fa-quote-right text-studio-purple mr-2"></i>How to cite & share</h4>
+                            <p class="text-white/60 text-xs leading-relaxed mb-3">You are free to use these books for study, fellowship, and classroom teaching. Please credit the author and do not resell. For bulk printing or translation permission, contact Dr. Tambou on WhatsApp.</p>
+                            <p class="text-[11px] italic font-serif text-white/50">"Freely ye have received, freely give." — Matt. 10:8</p>
+                        </div>
                     </div>
                 </div>
 
@@ -367,6 +588,9 @@
                             <p class="text-white/70 text-sm leading-relaxed">
                                 Explore a broader variety of Dr. Tambou's scholarly books, commentary drafts, and instructional publications. Easily pay and instantly download electronic copies of premium literature through his official verified global distributor portal.
                             </p>
+                            <div class="verse-card rounded-xl p-3">
+                                <p class="font-serif italic text-white/80 text-xs">"Of making many books there is no end; and much study is a weariness of the flesh. Fear God, and keep his commandments." — Eccl. 12:12-13</p>
+                            </div>
                             <div class="pt-2">
                                 <a href="https://selar.com/m/tambou-ebimobo-owei-donatus1" target="_blank" class="inline-flex items-center gap-3 bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-4 rounded-xl font-bold text-sm hover:scale-105 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(6,182,212,0.3)]">
                                     <i class="fa-solid fa-book-open text-lg"></i> View Selar Book Collection
@@ -388,6 +612,337 @@
 
             </div>
         </section>
+
+        <!-- STUDENT RESOURCE CENTER (NEW) -->
+        <section id="student-resources" class="fade-up mt-20 relative z-20 scroll-mt-24">
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-amber-400/25 shadow-xl shadow-amber-500/5 relative overflow-hidden">
+                <div class="absolute left-[-10%] top-[-30%] w-[350px] h-[350px] bg-amber-400/10 rounded-full blur-[90px] pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                        <div>
+                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-[10px] font-bold tracking-wider mb-4 border border-amber-400/30">
+                                <i class="fa-solid fa-graduation-cap"></i> RCTC · STUDENT RESOURCE CENTER
+                            </span>
+                            <h2 class="text-3xl md:text-4xl text-white font-extrabold leading-tight">Download <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-studio-cyan">Course Materials</span></h2>
+                            <p class="text-white/65 text-sm md:text-base mt-3 max-w-3xl leading-relaxed">Lecture notes, study guides, and revision packs for Dr. Tambou's courses at the Redeemed Christian Theological College. Free for enrolled students. Bring your Bible, notebook, and an expectant heart to every class.</p>
+                        </div>
+                        <div class="verse-card rounded-xl px-4 py-3 max-w-sm shrink-0">
+                            <p class="font-serif italic text-white/85 text-xs">"My people are destroyed for lack of knowledge. Get wisdom, get understanding."</p>
+                            <p class="text-amber-300 text-[10px] font-bold mt-1 tracking-widest">— HOSEA 4:6 & PROVERBS 4:7</p>
+                        </div>
+                    </div>
+
+                    <!-- How it works + search -->
+                    <div class="grid lg:grid-cols-3 gap-4 mb-8">
+                        <div class="lg:col-span-2 bg-black/40 rounded-2xl p-5 border border-white/10 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                            <div class="flex-1 w-full">
+                                <label class="text-[10px] font-bold tracking-widest uppercase text-white/50">Search materials</label>
+                                <div class="relative mt-2">
+                                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+                                    <input id="resource-search" oninput="filterResources(this.value)" type="text" placeholder="e.g. Hebrew, Old Testament, research..." class="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-studio-cyan">
+                                </div>
+                            </div>
+                            <div class="flex gap-2 flex-wrap">
+                                <button onclick="filterResourcesByTag('all', this)" class="res-filter-btn px-4 py-2 rounded-full text-[11px] font-bold bg-studio-cyan text-white">All</button>
+                                <button onclick="filterResourcesByTag('theology', this)" class="res-filter-btn px-4 py-2 rounded-full text-[11px] font-bold bg-white/5 border border-white/10 text-white/70 hover:text-white">Theology</button>
+                                <button onclick="filterResourcesByTag('language', this)" class="res-filter-btn px-4 py-2 rounded-full text-[11px] font-bold bg-white/5 border border-white/10 text-white/70 hover:text-white">Hebrew/Greek</button>
+                                <button onclick="filterResourcesByTag('practical', this)" class="res-filter-btn px-4 py-2 rounded-full text-[11px] font-bold bg-white/5 border border-white/10 text-white/70 hover:text-white">Practical</button>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-amber-400/15 to-studio-cyan/10 rounded-2xl p-5 border border-amber-400/20">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-amber-300 mb-2"><i class="fa-solid fa-circle-info mr-1"></i> How to use</p>
+                            <ol class="text-[11px] text-white/70 space-y-1.5 font-medium list-decimal list-inside">
+                                <li>Click a card to download the PDF / DOCX.</li>
+                                <li>Files marked <span class="text-amber-300 font-bold">PLACEHOLDER</span> are coming soon — check back.</li>
+                                <li>Need help? WhatsApp Dr. Tambou with your matric no. & course code.</li>
+                            </ol>
+                            <p class="text-[11px] italic font-serif text-white/50 mt-3">"This book of the law shall not depart out of thy mouth... then thou shalt have good success." — Josh. 1:8</p>
+                        </div>
+                    </div>
+
+                    <!-- Resource grid: 6 placeholders (requirement: at least five) -->
+                    <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                        <article data-tags="theology" data-title="systematic theology lecture notes" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-studio-cyan/10 text-studio-cyan border border-studio-cyan/20">THEOLOGY · THEO 101</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Systematic Theology I — Lecture Notes</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Prolegomena, Bibliology, Theology Proper. 12-week outline with memory verses and review questions.</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"All scripture is... profitable for doctrine." — 2 Tim. 3:16</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-course-material-01-systematic-theology.pdf" download onclick="handleResourceDownload(this); return false;" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download PDF</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20THEO%20101%20Systematic%20Theology%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">PDF · Placeholder file — replace with final upload. Size: ~2.5 MB</p>
+                        </article>
+
+                        <article data-tags="language" data-title="biblical hebrew beginners alphabet" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-studio-purple/10 text-studio-purple border border-studio-purple/20">HEBREW · HEB 101</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Elementary Biblical Hebrew — Alphabet & Workbook</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Alef-Bet charts, vowel points, transliteration drills, and first 100 vocabulary words.</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"The law of the LORD is perfect." — Ps. 19:7</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-course-material-02-hebrew-alphabet.pdf" download onclick="handleResourceDownload(this); return false;" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download PDF</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Rabbi!%20Please%20share%20HEB%20101%20Hebrew%20workbook." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">PDF · Placeholder file — replace with final upload. Size: ~4.1 MB</p>
+                        </article>
+
+                        <article data-tags="language" data-title="new testament greek essentials" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-studio-purple/10 text-studio-purple border border-studio-purple/20">GREEK · GRK 102</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">New Testament Greek Essentials — Study Pack</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Noun declensions, verb tenses, John 1:1 exegesis walkthrough, and parsing exercises.</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"In the beginning was the Word." — John 1:1</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-course-material-03-greek-essentials.pdf" download onclick="handleResourceDownload(this); return false;" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download PDF</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20GRK%20102%20Greek%20pack." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">PDF · Placeholder file — replace with final upload. Size: ~3.8 MB</p>
+                        </article>
+
+                        <article data-tags="theology" data-title="old testament survey genesis malachi" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">OLD TESTAMENT · OT 201</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Old Testament Survey — Genesis to Malachi</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Book-by-book themes, timelines, maps, and archaeology highlights for exams.</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"Thy word have I hid in mine heart." — Ps. 119:11</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-course-material-04-ot-survey.pdf" download onclick="handleResourceDownload(this); return false;" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download PDF</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20OT%20201%20survey%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">PDF · Placeholder file — replace with final upload. Size: ~5.2 MB</p>
+                        </article>
+
+                        <article data-tags="practical" data-title="sports psychology peak performance athletes" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20">SPORTS PSYCH · SP 310</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Sports Psychology — Peak Performance Guide</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Goal-setting, focus routines, anxiety control, and faith-based mental toughness for athletes.</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"They which run in a race run all." — 1 Cor. 9:24</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-course-material-05-sports-psychology.pdf" download onclick="handleResourceDownload(this); return false;" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download PDF</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Coach!%20Please%20share%20SP%20310%20performance%20guide." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">PDF · Placeholder file — replace with final upload. Size: ~1.9 MB</p>
+                        </article>
+
+                        <article data-tags="practical" data-title="research methods project writing diploma masters" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-orange-400/10 text-orange-300 border border-orange-400/20">RESEARCH · RES 400</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Research Methods — Project & Thesis Template</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">APA 7th formatting, chapter breakdown, questionnaire samples, and grading rubric (Diploma–Masters).</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"The heart of the prudent getteth knowledge." — Prov. 18:15</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-course-material-06-research-template.docx" download onclick="handleResourceDownload(this); return false;" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download DOCX</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20RES%20400%20thesis%20template." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">DOCX · Placeholder file — replace with final upload. Size: ~0.8 MB</p>
+                        </article>
+
+                    </div>
+                    <p id="resource-empty" class="hidden text-center text-white/50 text-sm py-6">No materials match your search. Try "Hebrew", "Theology", or "Research" — or message Dr. Tambou on WhatsApp.</p>
+
+                    <!-- Academic integrity note -->
+                    <div class="mt-6 grid md:grid-cols-2 gap-4">
+                        <div class="rounded-2xl bg-black/40 border border-white/10 p-5">
+                            <h4 class="text-white font-extrabold text-sm mb-2"><i class="fa-solid fa-scale-balanced text-emerald-400 mr-2"></i>Academic integrity</h4>
+                            <p class="text-white/60 text-xs leading-relaxed">These notes support your learning; they do not replace attendance, personal Bible study, or original research. Cite properly in assignments (APA 7th). Plagiarism is both academic misconduct and dishonesty before God: <span class="italic font-serif text-white/70">"Provide things honest in the sight of all men." — Rom. 12:17</span></p>
+                        </div>
+                        <div class="rounded-2xl bg-black/40 border border-white/10 p-5">
+                            <h4 class="text-white font-extrabold text-sm mb-2"><i class="fa-solid fa-calendar-check text-studio-cyan mr-2"></i>Class schedule (RCTC Main Campus)</h4>
+                            <ul class="text-xs text-white/65 space-y-1 font-medium">
+                                <li>• Elementary Hebrew — Tuesdays & Thursdays</li>
+                                <li>• Elementary Greek — Wednesdays</li>
+                                <li>• Old Testament Studies — as per semester timetable</li>
+                                <li>• Consultations: by WhatsApp appointment, Mon–Fri 9am–4pm</li>
+                            </ul>
+                            <p class="text-[11px] italic font-serif text-white/45 mt-2">"Redeeming the time, because the days are evil." — Eph. 5:16</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MINISTRY JOURNEY TIMELINE -->
+        <section id="journey" class="fade-up mt-20 relative z-20 scroll-mt-24">
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-purple/20">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-cyan/10 text-studio-cyan text-[10px] font-bold tracking-wider mb-4 border border-studio-cyan/20">
+                    <i class="fa-solid fa-route"></i> MINISTRY JOURNEY
+                </span>
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                    <h2 class="text-3xl md:text-4xl text-white font-extrabold leading-tight">From Ayakoromo to <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Redemption City</span></h2>
+                    <div class="verse-card rounded-xl px-4 py-3 max-w-sm">
+                        <p class="font-serif italic text-white/85 text-xs">"And I will give you pastors... which shall feed you with knowledge and understanding."</p>
+                        <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— JEREMIAH 3:15</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6 border-l border-white/10 pl-6">
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Roots · Delta State</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Called from Ayakoromo, Burutu L.G.A.</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Born Izon, raised with a hunger for Scripture that would later earn him the name "Rabbi" among students — and his chosen identity, "The Reborn Ezra."</p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Doctoral Formation · UniPort</p>
+                            <h4 class="text-white font-bold text-sm mt-1">PhD in Religious & Cultural Studies</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">University of Port Harcourt, Rivers State. Specialization in World Religion with deep focus on Biblical Studies (Old Testament), Hebrew and Greek exegesis.</p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Ordination · RCCG</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Ordained Pastor, Redeemed Christian Church of God</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">A deliverance and teaching ministry open to conferences, revivals, youth empowerments, and guest ministrations. <span class="italic font-serif">"How beautiful are the feet of them that preach the gospel of peace." — Rom. 10:15</span></p>
+                        </div>
+                    </div>
+                    <div class="space-y-6 border-l border-white/10 pl-6">
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Academia · Redemption City</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Lecturer & Director of Academic Planning, RCTC</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Training pastors and leaders at the Redeemed Christian Theological College (affiliate of Redeemer's University & University of Ibadan). Teaching Hebrew, Greek, Old Testament, and doctrine.</p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Athletics · National Institute for Sports</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Licensed Coach & Sports Psychologist</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Surulere, Lagos certification. Fusing tactical football coaching with mental-toughness training. <span class="italic font-serif">"Bodily exercise profiteth little: but godliness is profitable unto all things." — 1 Tim. 4:8</span></p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Authorship · Today</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Author, Mentor, Conference Speaker</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Eight+ books and papers, a growing Selar library, free downloads for the Body of Christ, and one-on-one mentorship for students, couples, and athletes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOLISTIC SPOTLIGHT -->
+        <section class="fade-up mt-12 relative z-20">
+            <div class="grid lg:grid-cols-3 gap-4">
+                <div class="glass-card rounded-3xl p-6 border border-studio-cyan/20">
+                    <i class="fa-solid fa-dumbbell text-studio-cyan text-2xl mb-3"></i>
+                    <h3 class="text-white font-extrabold mb-2">For Athletes & Coaches</h3>
+                    <p class="text-white/60 text-xs leading-relaxed mb-3">Tactical sessions, fitness plans, match analysis, and psychology: focus, confidence, composure under pressure, and godly discipline.</p>
+                    <p class="font-serif italic text-white/80 text-xs">"Know ye not that they which run in a race run all, but one receiveth the prize? So run, that ye may obtain."</p>
+                    <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— 1 CORINTHIANS 9:24</p>
+                </div>
+                <div class="glass-card rounded-3xl p-6 border border-studio-purple/20">
+                    <i class="fa-solid fa-heart text-studio-purple text-2xl mb-3"></i>
+                    <h3 class="text-white font-extrabold mb-2">For Couples & Families</h3>
+                    <p class="text-white/60 text-xs leading-relaxed mb-3">Pre-marital classes, conflict resolution, and faith-based counsel that strengthens covenant love and communication.</p>
+                    <p class="font-serif italic text-white/80 text-xs">"Husbands, love your wives, even as Christ also loved the church, and gave himself for it."</p>
+                    <p class="text-studio-purple text-[10px] font-bold mt-1 tracking-widest">— EPHESIANS 5:25</p>
+                </div>
+                <div class="glass-card rounded-3xl p-6 border border-emerald-400/20">
+                    <i class="fa-solid fa-microscope text-emerald-400 text-2xl mb-3"></i>
+                    <h3 class="text-white font-extrabold mb-2">For Researchers</h3>
+                    <p class="text-white/60 text-xs leading-relaxed mb-3">From Diploma projects to Master's dissertations in Sciences and Arts: topics, literature reviews, methodology, APA editing, and journal preparation.</p>
+                    <p class="font-serif italic text-white/80 text-xs">"The heart of the prudent getteth knowledge; and the ear of the wise seeketh knowledge."</p>
+                    <p class="text-emerald-400 text-[10px] font-bold mt-1 tracking-widest">— PROVERBS 18:15</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIES -->
+        <section id="testimonies" class="fade-up mt-20 relative z-20 scroll-mt-24">
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-white/10">
+                <div class="text-center mb-8">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 text-emerald-300 text-[10px] font-bold tracking-wider mb-4 border border-emerald-400/30">
+                        <i class="fa-solid fa-comments"></i> FRUIT THAT REMAINS
+                    </span>
+                    <h2 class="text-3xl md:text-4xl text-white font-extrabold">What Students & <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Mentees Say</span></h2>
+                    <p class="font-serif italic text-white/55 text-sm mt-3">"Let your light so shine before men, that they may see your good works, and glorify your Father." — Matt. 5:16</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <figure class="bg-black/40 rounded-2xl p-5 border border-white/5">
+                        <div class="text-amber-300 text-xs mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <blockquote class="text-white/70 text-xs leading-relaxed">"Rabbi makes Hebrew come alive. His Old Testament classes gave me confidence to rightly divide the word — I now teach my own Sunday-school with depth."</blockquote>
+                        <figcaption class="mt-4 text-[11px] font-bold text-white">— RCTC Student, Redemption City</figcaption>
+                    </figure>
+                    <figure class="bg-black/40 rounded-2xl p-5 border border-white/5">
+                        <div class="text-amber-300 text-xs mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <blockquote class="text-white/70 text-xs leading-relaxed">"As an athlete I struggled with focus before matches. Coach Tambou's psychology sessions taught me composure, prayer routines, and mental toughness."</blockquote>
+                        <figcaption class="mt-4 text-[11px] font-bold text-white">— Football Mentee, Lagos</figcaption>
+                    </figure>
+                    <figure class="bg-black/40 rounded-2xl p-5 border border-white/5">
+                        <div class="text-amber-300 text-xs mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <blockquote class="text-white/70 text-xs leading-relaxed">"He supervised my dissertation from topic to defence with patience and rigour. My work is now publication-ready. A true scholar-pastor."</blockquote>
+                        <figcaption class="mt-4 text-[11px] font-bold text-white">— Master's Candidate</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="fade-up mt-20 relative z-20 scroll-mt-24">
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/15">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-white/70 text-[10px] font-bold tracking-wider mb-4 border border-white/10">
+                    <i class="fa-solid fa-circle-question text-studio-cyan"></i> COMMON QUESTIONS
+                </span>
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                    <h2 class="text-3xl md:text-4xl text-white font-extrabold">Before You <span class="text-studio-cyan">Reach Out</span></h2>
+                    <p class="font-serif italic text-white/55 text-xs max-w-sm">"If any of you lack wisdom, let him ask of God, that giveth to all men liberally." — James 1:5</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-3">
+                    <details class="faq-item glass-card rounded-2xl p-5 group">
+                        <summary class="flex items-center justify-between gap-3 cursor-pointer list-none">
+                            <span class="text-white font-bold text-sm">Are the books really free?</span>
+                            <i class="fa-solid fa-chevron-down faq-chevron text-studio-cyan text-xs"></i>
+                        </summary>
+                        <p class="text-white/60 text-xs mt-3 leading-relaxed">Yes. Every title under "Free Downloads" is free for personal study and classroom use. If you are blessed, a free-will offering to Zenith Bank 2007780413 (E.D. Tambou) helps print more and fund research. Premium titles live on Selar.</p>
+                    </details>
+                    <details class="faq-item glass-card rounded-2xl p-5 group">
+                        <summary class="flex items-center justify-between gap-3 cursor-pointer list-none">
+                            <span class="text-white font-bold text-sm">How do I get the student course materials?</span>
+                            <i class="fa-solid fa-chevron-down faq-chevron text-studio-cyan text-xs"></i>
+                        </summary>
+                        <p class="text-white/60 text-xs mt-3 leading-relaxed">Scroll to the Student Resource Center, search by course code (e.g. HEB 101), and tap Download. Files marked PLACEHOLDER are being finalized — message Dr. Tambou on WhatsApp with your name, matric number, and course code to receive them directly.</p>
+                    </details>
+                    <details class="faq-item glass-card rounded-2xl p-5 group">
+                        <summary class="flex items-center justify-between gap-3 cursor-pointer list-none">
+                            <span class="text-white font-bold text-sm">Can I invite Dr. Tambou to speak or minister?</span>
+                            <i class="fa-solid fa-chevron-down faq-chevron text-studio-cyan text-xs"></i>
+                        </summary>
+                        <p class="text-white/60 text-xs mt-3 leading-relaxed">Absolutely — revivals, conferences, youth programmes, and deliverance meetings. Send your church/ministry name, proposed dates, and theme via WhatsApp (+234 816 576 6998) or email, and allow at least 2–3 weeks for scheduling.</p>
+                    </details>
+                    <details class="faq-item glass-card rounded-2xl p-5 group">
+                        <summary class="flex items-center justify-between gap-3 cursor-pointer list-none">
+                            <span class="text-white font-bold text-sm">Do you supervise research and dissertations?</span>
+                            <i class="fa-solid fa-chevron-down faq-chevron text-studio-cyan text-xs"></i>
+                        </summary>
+                        <p class="text-white/60 text-xs mt-3 leading-relaxed">Yes, from Diploma projects to Master's theses across Sciences and Arts: topic framing, literature review, methodology, APA 7th editing, and journal formatting. Share your level, department, and deadline when you reach out.</p>
+                    </details>
+                    <details class="faq-item glass-card rounded-2xl p-5 group">
+                        <summary class="flex items-center justify-between gap-3 cursor-pointer list-none">
+                            <span class="text-white font-bold text-sm">Do you coach football teams and athletes?</span>
+                            <i class="fa-solid fa-chevron-down faq-chevron text-studio-cyan text-xs"></i>
+                        </summary>
+                        <p class="text-white/60 text-xs mt-3 leading-relaxed">Yes. Licensed by the National Institute for Sports, Surulere, Lagos. Training covers tactics, technique, fitness, teamwork, plus sports psychology — focus, confidence, and composure. Teams and individuals are welcome.</p>
+                    </details>
+                    <details class="faq-item glass-card rounded-2xl p-5 group">
+                        <summary class="flex items-center justify-between gap-3 cursor-pointer list-none">
+                            <span class="text-white font-bold text-sm">How fast will I get a response?</span>
+                            <i class="fa-solid fa-chevron-down faq-chevron text-studio-cyan text-xs"></i>
+                        </summary>
+                        <p class="text-white/60 text-xs mt-3 leading-relaxed">WhatsApp is fastest (usually within 24–48 hours, Mon–Fri). For urgent pastoral matters, call directly. Email works best for documents and longer academic enquiries.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
         <!-- CONNECT DOWN ARROW -->
         <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200">
             <a href="#connect" class="group flex flex-col items-center gap-3 opacity-100 hover:opacity-100 transition-opacity duration-300">
@@ -398,7 +953,7 @@
         </div>
 
         <!-- CONTACT SECTION -->
-        <section id="connect" class="fade-up mt-10 relative z-20">
+        <section id="connect" class="fade-up mt-10 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="absolute top-[-50%] left-[-10%] w-[300px] h-[300px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -414,6 +969,10 @@
                     <p class="text-white/60 text-sm md:text-base max-w-xl mx-auto font-medium">
                         Whether you are seeking academic guidance, sports psychology consulting, soccer coaching, or wish to order a book, reach out today.
                     </p>
+                    <div class="verse-card rounded-xl p-4 max-w-xl mx-auto mt-5 text-left md:text-center">
+                        <p class="font-serif italic text-white/85 text-sm">"Call unto me, and I will answer thee, and shew thee great and mighty things, which thou knowest not. Come unto me, all ye that labour... and I will give you rest."</p>
+                        <p class="text-studio-cyan text-[11px] font-bold mt-2 tracking-widest uppercase">— Jeremiah 33:3 & Matthew 11:28</p>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 relative z-10 max-w-5xl mx-auto">
@@ -489,6 +1048,50 @@
                 </div>
             </div>
         </section>
+
+        <!-- FOOTER -->
+        <footer class="mt-12 glass-card rounded-3xl p-8 md:p-10 border border-white/10">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="t.jpg" alt="Dr Tambou" class="w-11 h-11 rounded-full object-cover border-2 border-studio-cyan/40">
+                        <div>
+                            <p class="text-white font-extrabold text-sm">Pastor E.D. Tambou, PhD</p>
+                            <p class="text-studio-cyan text-[10px] font-bold tracking-widest uppercase">The Reborn Ezra · Rabbi</p>
+                        </div>
+                    </div>
+                    <p class="text-white/55 text-xs leading-relaxed">Restoring truth, purity, and revival through sound teaching, prayer, and holistic development of spirit, mind, and body.</p>
+                    <p class="font-serif italic text-white/60 text-xs mt-3">"And ye shall know the truth, and the truth shall make you free." — John 8:32</p>
+                </div>
+                <div>
+                    <p class="text-[11px] font-bold tracking-widest uppercase text-white/50 mb-4">Explore</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/65">
+                        <a href="#about-section" class="hover:text-studio-cyan">About</a>
+                        <a href="#services-grid" class="hover:text-studio-cyan">Expertise</a>
+                        <a href="#publications" class="hover:text-studio-cyan">Free Library</a>
+                        <a href="#student-resources" class="hover:text-amber-300">Student Resources</a>
+                        <a href="#journey" class="hover:text-studio-cyan">Journey</a>
+                        <a href="#faq" class="hover:text-studio-cyan">FAQ</a>
+                        <a href="#testimonies" class="hover:text-studio-cyan">Testimonies</a>
+                        <a href="#connect" class="hover:text-studio-cyan">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-[11px] font-bold tracking-widest uppercase text-white/50 mb-4">Contact & Giving</p>
+                    <ul class="text-xs text-white/65 space-y-2 font-medium">
+                        <li><i class="fa-solid fa-location-dot text-studio-cyan w-5"></i> RCTC, Redemption City, Ogun State, Nigeria</li>
+                        <li><i class="fa-solid fa-phone text-studio-cyan w-5"></i> +234 816 576 6998</li>
+                        <li><i class="fa-solid fa-envelope text-studio-cyan w-5"></i> donatustambou3@gmail.com</li>
+                        <li><i class="fa-solid fa-building-columns text-amber-300 w-5"></i> Zenith Bank · 2007780413 · E.D. Tambou</li>
+                    </ul>
+                    <p class="font-serif italic text-white/45 text-[11px] mt-3">"I am not ashamed of the gospel of Christ." — Rom. 1:16</p>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-[11px] text-white/40 font-medium">© 2026 Pastor E.D. Tambou, PhD. All rights reserved. Soli Deo Gloria.</p>
+                <a href="#top" class="text-[11px] font-bold text-studio-cyan hover:text-white transition-colors"><i class="fa-solid fa-arrow-up mr-1"></i> Back to top</a>
+            </div>
+        </footer>
     
     </main>
 
@@ -517,7 +1120,8 @@
                 </div>
                 
                 <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mb-1 leading-tight text-white">Service Title</h2>
-                <p id="modal-tagline" class="text-studio-cyan text-sm mb-5 font-bold opacity-90">Tagline here</p>
+                <p id="modal-tagline" class="text-studio-cyan text-sm mb-3 font-bold opacity-90">Tagline here</p>
+                <p id="modal-verse" class="font-serif italic text-white/60 text-xs mb-5 border-l-2 border-studio-cyan/40 pl-3">Verse</p>
                 
                 <div class="grid grid-cols-3 gap-2 md:gap-3 mb-6">
                     <div class="glass-card rounded-xl p-3 text-center">
@@ -566,6 +1170,14 @@
         </div>
     </div>
 
+    <!-- TOAST -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] hidden">
+        <div class="bg-studio-card border border-studio-cyan/30 text-white text-xs font-bold px-5 py-3 rounded-full shadow-2xl flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+            <span id="toast-msg">Done</span>
+        </div>
+    </div>
+
     <script>
         const products = [
             {
@@ -574,6 +1186,7 @@
         tag: "PASTORAL",
         icon: "12.jpg", 
         stats: ["Deliverance", "Conferences", "Youth Focus"],
+        verse: "\u201CHow beautiful are the feet of them that preach the gospel of peace.\" \u2014 Rom. 10:15",
         desc: "Serving as an ordained Pastor in the Redeemed Christian Church of God (RCCG), Pastor E.D. Tambou Ph.D. is actively open to invitations for speaking engagements. His prophetic and teaching ministry brings profound spiritual insight, focusing heavily on deliverance, transformative conference sessions, and equipping the youth for the future.",
         deliverables: "Guest Speaker, Deliverance Ministration, Youth Empowerment Conferences, Revival Meetings, Pastoral Counseling."
     },
@@ -583,8 +1196,9 @@
                 tag: "ACADEMICS",
                 icon: "t.jpg",
                 stats: [ "Exegesis", "Doctrine","Greek & Hebrew"],
-                desc: "He teaches both Elementary Hebrew and Greek languages for the purpose of equipping the saints for ministry",
-                deliverables: "College Courses, Seminars, Doctrinal Teaching, Academic Mentorship."
+                verse: "\u201CStudy to shew thyself approved unto God... rightly dividing the word of truth.\" \u2014 2 Tim. 2:15",
+                desc: "He teaches both Elementary Hebrew and Greek languages for the purpose of equipping the saints for ministry. Director of Academic Planning, mentoring emerging ministers with clarity, biblical depth, and prophetic insight.",
+                deliverables: "College Courses, Seminars, Doctrinal Teaching, Academic Mentorship, Student Course Materials (see Student Resources)."
             },
             
             {
@@ -593,8 +1207,9 @@
                 tag: "ATHLETICS",
                 icon: "13.jpg", 
                 stats: ["Tactics", "Fitness", "Teamwork"],
-                desc: "Expert football coaching that brings psychological insight directly into physical training. Dedicated to developing skilled, disciplined, and cohesive football teams.",
-                deliverables: "Training Sessions, Match Analysis, Player Development Plans, Tactical Drills."
+                verse: "\u201CThey which run in a race run all... So run, that ye may obtain.\" \u2014 1 Cor. 9:24",
+                desc: "Expert football coaching that brings psychological insight directly into physical training. Dedicated to developing skilled, disciplined, and cohesive football teams — mentally strong and physically fit.",
+                deliverables: "Training Sessions, Match Analysis, Player Development Plans, Tactical Drills, Peak-Performance Psychology."
             },
             {
                 title: "Author of Books",
@@ -602,7 +1217,8 @@
                 tag: "LITERATURE",
                 icon: "88.jpg", 
                 stats: ["Theology", "Psychology", "Inspiration"],
-                desc: "Explore a rich collection of published works bridging the gap between rigorous theological study and practical sports psychology.",
+                verse: "\u201CThy word is a lamp unto my feet, and a light unto my path.\" \u2014 Ps. 119:105",
+                desc: "Explore a rich collection of published works bridging the gap between rigorous theological study and practical sports psychology. Free downloads available in the Library; premium editions on Selar.",
                 deliverables: "Paperbacks, E-books, Devotionals, Academic Papers."
             },
             {
@@ -611,6 +1227,7 @@
                 tag: "MINISTRY",
                 icon: "15.jpg", 
                 stats: ["Guidance", "Leadership", "Faith"],
+                verse: "\u201CAnd I will give you pastors... which shall feed you with knowledge.\" \u2014 Jer. 3:15",
                 desc: "Life coaching, pastoral mentorship, and public speaking engagements tailored to uplift, educate, and inspire individuals across academic and athletic disciplines.",
                 deliverables: "Conference Speaking, Pastoral Counseling, Youth Mentorship, Leadership Training."
             },
@@ -620,6 +1237,7 @@
         tag: "COUNSELING",
         icon: "16.jpg", 
         stats: ["Guidance", "Mediation", "Faith"],
+        verse: "\u201CHusbands, love your wives, even as Christ also loved the church.\" \u2014 Eph. 5:25",
         desc: "Providing faith-based counseling to couples, drawing on deep biblical principles and psychological understanding to resolve conflicts and strengthen marital bonds.",
         deliverables: "Pre-marital Counseling, Conflict Resolution, Couples Therapy."
     },
@@ -629,6 +1247,7 @@
         tag: "RESEARCH",
         icon: "999.jpg", 
         stats: ["Sciences", "Arts", "All Levels"],
+        verse: "\u201CThe heart of the prudent getteth knowledge.\" \u2014 Prov. 18:15",
         desc: "Providing professional assistance in writing high-quality research papers, theses, and dissertations across both Science and Arts disciplines. Tailored academic support is available for students at every level, from Diploma programs up to Master's degrees.",
         deliverables: "Research Papers, Master's Dissertations, Diploma Projects, Literature Reviews, Academic Editing and Journal Articles for Publication & Conference Presentations."
     }
@@ -664,6 +1283,7 @@
             document.getElementById('modal-title').innerText = p.title;
             document.getElementById('modal-tagline').innerText = p.tagline;
             document.getElementById('modal-tag').innerText = p.tag;
+            document.getElementById('modal-verse').innerText = p.verse || '';
             
             document.getElementById('modal-icon').src = p.icon;
             
@@ -687,6 +1307,7 @@
         }
 
         const canvasContainer = document.getElementById('canvas-container');
+        if (canvasContainer && typeof THREE !== 'undefined') {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
         camera.position.z = 4.5;
@@ -723,6 +1344,7 @@
             camera.updateProjectionMatrix();
             renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
         });
+        }
         // Tab switching function for publications
         function switchLibraryTab(tabId) {
             const freeDownloadsTab = document.getElementById('tab-free-downloads');
@@ -734,14 +1356,14 @@
                 freeDownloadsTab.classList.remove('hidden');
                 selarBooksTab.classList.add('hidden');
                 
-                freeBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2";
-                selarBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2";
+                freeBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2 whitespace-nowrap";
+                selarBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2 whitespace-nowrap";
             } else {
                 freeDownloadsTab.classList.add('hidden');
                 selarBooksTab.classList.remove('hidden');
                 
-                selarBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2";
-                freeBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2";
+                selarBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-studio-cyan text-studio-cyan flex items-center gap-2 whitespace-nowrap";
+                freeBtn.className = "px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2 whitespace-nowrap";
             }
         }
 
@@ -752,7 +1374,7 @@
             
             navigator.clipboard.writeText(accNum).then(() => {
                 copyIcon.className = "fa-solid fa-check text-emerald-400 text-sm";
-                
+                showToast('Account number copied: 2007780413');
                 setTimeout(() => {
                     copyIcon.className = "fa-solid fa-copy text-sm";
                 }, 2000);
@@ -774,6 +1396,7 @@
             textSpan.innerText = "Downloaded!";
             icon.className = "fa-solid fa-circle-check text-emerald-400 text-sm";
             button.classList.add("border-emerald-400/60", "bg-emerald-500/10");
+            showToast('Download started — God bless your study!');
 
             setTimeout(() => {
                 textSpan.innerText = originalText;
@@ -781,6 +1404,96 @@
                 button.classList.remove("border-emerald-400/60", "bg-emerald-500/10");
             }, 3500);
         }
+
+        // Rotating verses
+        const verses = [
+            { text: '"Thy word is a lamp unto my feet, and a light unto my path."', ref: '— Psalm 119:105' },
+            { text: '"Study to shew thyself approved unto God, a workman that needeth not to be ashamed."', ref: '— 2 Timothy 2:15' },
+            { text: '"For Ezra had prepared his heart to seek the Law of the LORD, and to do it, and to teach."', ref: '— Ezra 7:10' },
+            { text: '"They which run in a race run all... So run, that ye may obtain."', ref: '— 1 Corinthians 9:24' },
+            { text: '"Call unto me, and I will answer thee, and shew thee great and mighty things."', ref: '— Jeremiah 33:3' }
+        ];
+        let verseIndex = 0;
+        function rotateVerse(dir) {
+            verseIndex = (verseIndex + dir + verses.length) % verses.length;
+            const t = document.getElementById('rotating-verse-text');
+            const r = document.getElementById('rotating-verse-ref');
+            const c = document.getElementById('verse-counter');
+            t.style.opacity = 0;
+            setTimeout(() => {
+                t.innerText = verses[verseIndex].text;
+                r.innerText = verses[verseIndex].ref;
+                c.innerText = (verseIndex + 1) + ' / ' + verses.length;
+                t.style.opacity = 1;
+            }, 250);
+        }
+        setInterval(() => rotateVerse(1), 8000);
+
+        // Counters
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-target'), 10);
+                    let current = 0;
+                    const step = Math.max(1, Math.ceil(target / 60));
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) { current = target; clearInterval(timer); }
+                        el.innerText = current;
+                    }, 30);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => counterObserver.observe(c));
+
+        // Student resources filter + placeholder handler
+        let activeTag = 'all';
+        function filterResources(query) {
+            applyResourceFilter(query.toLowerCase().trim());
+        }
+        function filterResourcesByTag(tag, btn) {
+            activeTag = tag;
+            document.querySelectorAll('.res-filter-btn').forEach(b => {
+                b.className = "res-filter-btn px-4 py-2 rounded-full text-[11px] font-bold bg-white/5 border border-white/10 text-white/70 hover:text-white";
+            });
+            if (btn) btn.className = "res-filter-btn px-4 py-2 rounded-full text-[11px] font-bold bg-studio-cyan text-white";
+            const q = (document.getElementById('resource-search').value || '').toLowerCase().trim();
+            applyResourceFilter(q);
+        }
+        function applyResourceFilter(q) {
+            const cards = document.querySelectorAll('.resource-card');
+            let visible = 0;
+            cards.forEach(card => {
+                const title = (card.getAttribute('data-title') || '').toLowerCase();
+                const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+                const matchQ = !q || title.includes(q) || tags.includes(q);
+                const matchT = activeTag === 'all' || tags.includes(activeTag);
+                const show = matchQ && matchT;
+                card.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+            document.getElementById('resource-empty').classList.toggle('hidden', visible !== 0);
+        }
+        function handleResourceDownload(link) {
+            const card = link.closest('article');
+            const title = card ? card.querySelector('h3').innerText : 'Course material';
+            showToast('"' + title + '" is a placeholder — final file coming soon. Request via WhatsApp.');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => toast.classList.add('hidden'), 3500);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        });
     </script>
 </body>
 </html>
