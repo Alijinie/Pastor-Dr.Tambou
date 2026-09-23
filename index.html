@@ -95,11 +95,18 @@
         details.faq-item summary::-webkit-details-marker { display: none; }
         details.faq-item[open] .faq-chevron { transform: rotate(180deg); }
         .faq-chevron { transition: transform 0.3s ease; }
-        /* Page-tab interface: each tab feels like its own page, layout untouched */
-        .page-tab-btn { border-bottom: 2px solid transparent; color: rgba(255,255,255,0.6); }
-        .page-tab-btn:hover { color: #fff; }
-        .page-tab-btn.active { border-bottom-color: #06b6d4; color: #06b6d4; }
-        .page-tab-panel.hidden-tab { display: none; }
+        /* SPA router: grouped views, premium 4-tab bar */
+        .spa-nav-link.active { color: #06b6d4; }
+        .spa-view.hidden-view { display: none; }
+        .tab-pill { position: relative; border: 1px solid rgba(255,255,255,0.10); color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.04); transition: all .3s cubic-bezier(.16,1,.3,1); }
+        .tab-pill:hover { color: #fff; border-color: rgba(6,182,212,0.45); transform: translateY(-1px); }
+        .tab-pill.active { color: #fff; border-color: transparent; background: linear-gradient(90deg, rgba(6,182,212,.9), rgba(139,92,246,.9)); box-shadow: 0 8px 24px rgba(6,182,212,.25); }
+        .tab-pill.active i { color: #fff; }
+        .section-eyebrow { display: inline-flex; align-items: center; gap: .5rem; padding: .25rem .75rem; border-radius: 9999px; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+        .group-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(6,182,212,.35), rgba(139,92,246,.35), transparent); }
+        #back-to-top { transition: all .3s ease; opacity: 0; pointer-events: none; transform: translateY(12px); }
+        #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        #gallery-lightbox.hidden-lightbox { display: none; }
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-studio-purple selection:text-white overflow-x-hidden">
@@ -121,7 +128,7 @@
     <!-- STICKY NAV -->
     <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0a0a0c]/85 border-b border-white/10">
         <nav class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between gap-3">
-            <a href="#top" onclick="switchPageTab('home'); return false;" class="flex items-center gap-3 shrink-0">
+            <a href="#/discover" class="flex items-center gap-3 shrink-0">
                 <img src="t.jpg" alt="Dr Tambou" class="w-10 h-10 rounded-full object-cover border-2 border-studio-cyan/40">
                 <div class="leading-tight">
                     <p class="text-white font-extrabold text-sm">Pastor E.D. Tambou, PhD</p>
@@ -129,13 +136,10 @@
                 </div>
             </a>
             <div class="hidden lg:flex items-center gap-6 text-[13px] font-bold text-white/70">
-                <a href="#tab-about" onclick="switchPageTab('about'); return false;" class="hover:text-studio-cyan transition-colors">About</a>
-                <a href="#tab-expertise" onclick="switchPageTab('expertise'); return false;" class="hover:text-studio-cyan transition-colors">Expertise</a>
-                <a href="#tab-library" onclick="switchPageTab('library'); return false;" class="hover:text-studio-cyan transition-colors">Library</a>
-                <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="hover:text-studio-cyan transition-colors flex items-center gap-1"><i class="fa-solid fa-graduation-cap text-studio-purple"></i> Student Resources</a>
-                <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="hover:text-studio-cyan transition-colors">Journey</a>
-                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan transition-colors">FAQ</a>
-                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan transition-colors">Contact</a>
+                <a href="#/discover" data-spa-link="discover" class="spa-nav-link hover:text-studio-cyan transition-colors">Discover</a>
+                <a href="#/library" data-spa-link="library" class="spa-nav-link hover:text-studio-cyan transition-colors">Library & Study</a>
+                <a href="#/connect" data-spa-link="connect" class="spa-nav-link hover:text-studio-cyan transition-colors">Journey & Connect</a>
+                <a href="#/gallery" data-spa-link="gallery" class="spa-nav-link hover:text-studio-cyan transition-colors">Gallery</a>
             </div>
             <div class="flex items-center gap-2">
                 <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I%20found%20your%20website." target="_blank" class="hidden sm:inline-flex bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-5 py-2 rounded-full font-bold text-xs hover:scale-105 transition-transform">
@@ -148,35 +152,29 @@
         </nav>
         <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
             <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/80">
-                <a href="#tab-about" onclick="switchPageTab('about'); return false;" class="glass-card rounded-xl p-3 text-center">About</a>
-                <a href="#tab-expertise" onclick="switchPageTab('expertise'); return false;" class="glass-card rounded-xl p-3 text-center">Expertise</a>
-                <a href="#tab-library" onclick="switchPageTab('library'); return false;" class="glass-card rounded-xl p-3 text-center">Library</a>
-                <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="glass-card rounded-xl p-3 text-center text-studio-cyan">Student Resources</a>
-                <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="glass-card rounded-xl p-3 text-center">Journey</a>
-                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="glass-card rounded-xl p-3 text-center">FAQ</a>
-                <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="glass-card rounded-xl p-3 text-center">Testimonies</a>
-                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="glass-card rounded-xl p-3 text-center">Contact</a>
+                <a href="#/discover" data-spa-link="discover" class="spa-nav-link glass-card rounded-xl p-3 text-center">Discover</a>
+                <a href="#/library" data-spa-link="library" class="spa-nav-link glass-card rounded-xl p-3 text-center">Library & Study</a>
+                <a href="#/connect" data-spa-link="connect" class="spa-nav-link glass-card rounded-xl p-3 text-center">Journey & Connect</a>
+                <a href="#/gallery" data-spa-link="gallery" class="spa-nav-link glass-card rounded-xl p-3 text-center">Gallery</a>
             </div>
         </div>
     </header>
 
+    <!-- PREMIUM 4-TAB BAR -->
+    <nav id="spa-tabs" role="tablist" aria-label="Website sections" class="sticky top-[64px] z-30 px-4 md:px-8 py-3 mb-8 bg-[#0a0a0c]/85 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto no-scrollbar" id="spa-tabs-track">
+            <a href="#/discover" role="tab" data-spa-link="discover" class="tab-pill active px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-compass text-studio-cyan"></i> Discover</a>
+            <a href="#/library" role="tab" data-spa-link="library" class="tab-pill px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-book-open text-studio-cyan"></i> Library & Study</a>
+            <a href="#/connect" role="tab" data-spa-link="connect" class="tab-pill px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-route text-studio-purple"></i> Journey & Connect</a>
+            <a href="#/gallery" role="tab" data-spa-link="gallery" class="tab-pill px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-images text-amber-300"></i> Gallery</a>
+        </div>
+    </nav>
+
     <main id="top" class="flex-1 pt-8 pb-32 px-4 md:px-8 max-w-7xl mx-auto w-full">
-        <!-- PAGE TAB BAR: each tab feels like its own page -->
-        <nav id="page-tabs" role="tablist" aria-label="Website sections" class="sticky top-[64px] z-30 -mx-4 md:-mx-8 px-4 md:px-8 py-3 mb-8 bg-[#0a0a0c]/85 backdrop-blur-xl border-b border-white/10">
-            <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto no-scrollbar" id="page-tabs-track">
-                <button role="tab" data-page-tab-btn="home" onclick="switchPageTab('home')" class="page-tab-btn active px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-house"></i> Home</button>
-                <button role="tab" data-page-tab-btn="about" onclick="switchPageTab('about')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> About</button>
-                <button role="tab" data-page-tab-btn="expertise" onclick="switchPageTab('expertise')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-star"></i> Expertise</button>
-                <button role="tab" data-page-tab-btn="library" onclick="switchPageTab('library')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-book-open"></i> Library</button>
-                <button role="tab" data-page-tab-btn="ebooks" onclick="switchPageTab('ebooks')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-tablet-screen-button"></i> E-Books</button>
-                <button role="tab" data-page-tab-btn="student" onclick="switchPageTab('student')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-graduation-cap"></i> Student Center</button>
-                <button role="tab" data-page-tab-btn="journey" onclick="switchPageTab('journey')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-route"></i> Journey</button>
-                <button role="tab" data-page-tab-btn="contact" onclick="switchPageTab('contact')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-envelope"></i> FAQ & Contact</button>
-            </div>
-        </nav>
+        <!-- SPA views: 4 grouped tabs (Discover / Library & Study / Journey & Connect / Gallery), stacked scroll inside each tab -->
         
         <!-- HERO SECTION -->
-        <section class="fade-up mb-8 page-tab-panel" data-page-tab="home" role="tabpanel">
+        <section class="fade-up mb-8 spa-view" data-view="discover" role="tabpanel">
             <div class="relative rounded-3xl overflow-hidden glass-card min-h-[450px] flex flex-col md:flex-row items-center border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="p-8 md:p-12 md:w-1/2 z-20 flex flex-col items-start justify-center h-full pointer-events-none">
@@ -196,13 +194,13 @@
                         <p class="text-studio-cyan text-[11px] font-bold mt-2 tracking-widest uppercase">— 2 Timothy 2:15 (KJV)</p>
                     </div>
                     <div class="flex gap-4 pointer-events-auto flex-wrap">
-                        <button onclick="switchPageTab('expertise')" class="bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+                        <a href="#/discover" class="bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.3)]">
                             Explore Expertise
-                        </button>
+                        </a>
                         <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I'd%20like%20a%20copy%20of%20your%20C.V." target="_blank" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform backdrop-blur-md flex items-center gap-2">
                             <i class="fa-solid fa-file-arrow-down"></i> Download C.V.
                         </a>
-                        <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
+                        <a href="#/library" class="bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
                             <i class="fa-solid fa-graduation-cap"></i> Student Portal
                         </a>
                     </div>
@@ -240,7 +238,7 @@
         </section>
 
         <!-- DAILY WORD ROTATOR -->
-        <section class="fade-up mb-16 relative z-20 page-tab-panel" data-page-tab="home" role="tabpanel">
+        <section class="fade-up mb-16 relative z-20 spa-view" data-view="discover" role="tabpanel">
             <div class="glass-card rounded-2xl p-6 md:p-8 border border-amber-400/20 flex flex-col md:flex-row items-start md:items-center gap-4">
                 <div class="w-12 h-12 rounded-2xl bg-amber-400/15 border border-amber-400/30 flex items-center justify-center shrink-0">
                     <i class="fa-solid fa-quote-left text-amber-300 text-xl"></i>
@@ -258,7 +256,7 @@
         </section>
 
         <!-- NEW ABOUT SECTION -->
-        <section id="about-section" class="fade-up delay-100 mb-16 relative z-20 page-tab-panel" data-page-tab="about" role="tabpanel">
+        <section id="about-section" class="fade-up delay-100 mb-16 relative z-20 spa-view" data-view="discover" role="tabpanel">
             <div class="glass-card rounded-3xl p-8 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-purple/5 relative overflow-hidden">
                 <div class="absolute right-[-10%] top-[-10%] w-[300px] h-[300px] bg-studio-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
 
@@ -363,7 +361,7 @@
 
         <!-- SERVICES / EXPERTISE GRID -->
         <!-- SERVICES / EXPERTISE GRID -->
-<section id="services-grid" class="fade-up delay-100 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="expertise" role="tabpanel">
+<section id="services-grid" class="fade-up delay-100 relative z-20 scroll-mt-24 spa-view" data-view="discover" role="tabpanel">
     <div class="glass-card rounded-2xl p-6 md:p-8 mb-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -405,7 +403,7 @@
 
 
         <!-- PUBLICATIONS & TABBED LIBRARY SECTION -->
-        <section id="publications" class="fade-up delay-200 mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="library" role="tabpanel">
+        <section id="publications" class="fade-up delay-200 mt-20 relative z-20 scroll-mt-24 spa-view" data-view="library" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
                 
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -435,7 +433,7 @@
                     <button onclick="switchLibraryTab('selar-books')" id="tab-selar-books-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-book-open"></i> Premium Books (Selar)
                     </button>
-                    <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-amber-300/80 hover:text-amber-300 flex items-center gap-2 whitespace-nowrap">
+                    <a href="#/library" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-amber-300/80 hover:text-amber-300 flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-graduation-cap"></i> Student Materials →
                     </a>
                 </div>
@@ -635,7 +633,7 @@
         </section>
 
         <!-- NEWLY PUBLISHED E-BOOKS -->
-        <section id="new-ebooks" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="ebooks" role="tabpanel">
+        <section id="new-ebooks" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="library" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden text-center">
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
                 <div class="relative z-10">
@@ -689,7 +687,7 @@
         </section>
 
         <!-- STUDENT RESOURCE CENTER (NEW) -->
-        <section id="student-resources" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="student" role="tabpanel">
+        <section id="student-resources" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="library" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-amber-400/25 shadow-xl shadow-amber-500/5 relative overflow-hidden">
                 <div class="absolute left-[-10%] top-[-30%] w-[350px] h-[350px] bg-amber-400/10 rounded-full blur-[90px] pointer-events-none"></div>
                 <div class="relative z-10">
@@ -913,7 +911,7 @@
         </section>
 
         <!-- MINISTRY JOURNEY TIMELINE -->
-<section id="journey" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="journey" role="tabpanel">
+<section id="journey" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
     <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-purple/20">
         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-cyan/10 text-studio-cyan text-[10px] font-bold tracking-wider mb-4 border border-studio-cyan/20">
             <i class="fa-solid fa-route"></i> MINISTRY JOURNEY
@@ -965,18 +963,18 @@
 </section>
 
         <!-- HOLISTIC SPOTLIGHT -->
-        <section class="fade-up mt-12 relative z-20 page-tab-panel" data-page-tab="expertise" role="tabpanel">
+        <section class="fade-up mt-12 relative z-20 spa-view" data-view="discover" role="tabpanel">
             <div class="grid lg:grid-cols-3 gap-4">
                 <div class="glass-card rounded-3xl p-6 border border-studio-cyan/20 flex flex-col">
     <i class="fa-solid fa-dumbbell text-studio-cyan text-2xl mb-3"></i>
     <h3 class="text-white font-extrabold mb-2">For Athletes & Coaches</h3>
     <p class="text-white/60 text-xs leading-relaxed mb-4">Tactical sessions, fitness plans, match analysis, and psychology: focus, confidence, composure under pressure, and godly discipline.</p>
     
-    <!-- GALLERY TRIGGER BUTTON -->
-    <button onclick="document.getElementById('football-gallery').classList.remove('hidden'); document.body.style.overflow='hidden';" class="w-full mb-5 inline-flex items-center justify-center gap-2 bg-studio-cyan/10 hover:bg-studio-cyan/20 border border-studio-cyan/30 text-amber-300 py-2.5 rounded-xl font-bold text-xs transition-all group">
+    <!-- GALLERY LINK: gallery is now its own tab -->
+    <a href="#/gallery" class="w-full mb-5 inline-flex items-center justify-center gap-2 bg-studio-cyan/10 hover:bg-studio-cyan/20 border border-studio-cyan/30 text-amber-300 py-2.5 rounded-xl font-bold text-xs transition-all group">
         <i class="fa-solid fa-images group-hover:scale-110 transition-transform"></i> 
         <span>View Football Gallery</span>
-    </button>
+    </a>
     
     <div class="mt-auto">
         <p class="font-serif italic text-white/80 text-xs">"Know ye not that they which run in a race run all, but one receiveth the prize? So run, that ye may obtain."</p>
@@ -1001,7 +999,7 @@
         </section>
 
         <!-- TESTIMONIES -->
-        <section id="testimonies" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="journey" role="tabpanel">
+        <section id="testimonies" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-white/10">
                 <div class="text-center mb-8">
                     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 text-emerald-300 text-[10px] font-bold tracking-wider mb-4 border border-emerald-400/30">
@@ -1031,7 +1029,7 @@
         </section>
 
         <!-- FAQ -->
-        <section id="faq" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="contact" role="tabpanel">
+        <section id="faq" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/15">
                 <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-white/70 text-[10px] font-bold tracking-wider mb-4 border border-white/10">
                     <i class="fa-solid fa-circle-question text-studio-cyan"></i> COMMON QUESTIONS
@@ -1088,7 +1086,7 @@
         </section>
 
         <!-- CONNECT DOWN ARROW -->
-        <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200 page-tab-panel" data-page-tab="contact" role="tabpanel">
+        <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200 spa-view" data-view="connect" role="tabpanel">
             <a href="#connect" class="group flex flex-col items-center gap-3 opacity-100 hover:opacity-100 transition-opacity duration-300">
                 <div class="w-6 h-10 border-2 border-studio-purple/50 rounded-full flex justify-center pt-2 relative shadow-[0_0_15px_rgba(139,92,246,0.1)] group-hover:border-studio-cyan group-hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 backdrop-blur-sm bg-black/20">
                     <i class="fa-solid fa-angles-down text-studio-cyan text-[30px] animate-bounce"></i>
@@ -1097,7 +1095,7 @@
         </div>
 
         <!-- CONTACT SECTION -->
-        <section id="connect" class="fade-up mt-10 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="contact" role="tabpanel">
+        <section id="connect" class="fade-up mt-10 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
             <div class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="absolute top-[-50%] left-[-10%] w-[300px] h-[300px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -1154,6 +1152,72 @@
             </div>
         </section>
         
+        <!-- FOOTBALL GALLERY ROUTE -->
+        <section id="gallery" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="gallery" role="tabpanel">
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
+                <div class="absolute right-[-10%] top-[-30%] w-[350px] h-[350px] bg-studio-cyan/10 rounded-full blur-[90px] pointer-events-none"></div>
+                <div class="relative z-10">
+                    <span class="section-eyebrow bg-studio-cyan/10 text-studio-cyan border border-studio-cyan/20">
+                        <i class="fa-solid fa-futbol"></i> Sports Ministry · <span id="gallery-count">10 moments</span>
+                    </span>
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-4 mb-6">
+                        <h2 class="text-3xl md:text-4xl text-white font-extrabold leading-tight">Football <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Gallery</span></h2>
+                        <div class="verse-card rounded-xl px-4 py-3 max-w-sm">
+                            <p class="font-serif italic text-white/85 text-xs">"They which run in a race run all... So run, that ye may obtain."</p>
+                            <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— 1 CORINTHIANS 9:24</p>
+                        </div>
+                    </div>
+                    <p class="text-white/60 text-xs md:text-sm max-w-3xl leading-relaxed mb-8">Tactical sessions, team training, and mental-toughness coaching with Pastor E.D. Tambou — licensed coach and sports psychologist. Tap any photo to view it fullscreen.</p>
+                    <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        <button onclick="openLightbox(0)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="6.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Tactical session on the pitch" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Tactical Session</span>
+                        </button>
+                        <button onclick="openLightbox(1)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="12.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Team training drill" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Team Training</span>
+                        </button>
+                        <button onclick="openLightbox(2)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="13.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Coaching moment" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Coaching Moment</span>
+                        </button>
+                        <button onclick="openLightbox(3)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="11.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Match day focus" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Match Day Focus</span>
+                        </button>
+                        <button onclick="openLightbox(4)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="15.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="On the pitch" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">On The Pitch</span>
+                        </button>
+                        <button onclick="openLightbox(5)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="16.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Player focus and discipline" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Player Focus</span>
+                        </button>
+                        <button onclick="openLightbox(6)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="2.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Discipline drill" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Discipline Drill</span>
+                        </button>
+                        <button onclick="openLightbox(7)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="1.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Strategy review" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Strategy Review</span>
+                        </button>
+                        <button onclick="openLightbox(8)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="3.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Sports ministry outreach" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Sports Ministry</span>
+                        </button>
+                        <button onclick="openLightbox(9)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
+                            <img src="7.jpg" onerror="this.onerror=null;this.src='t.jpg'" alt="Victory celebration" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Victory Celebration</span>
+                        </button>
+                    </div>
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-black/40 border border-white/10 rounded-2xl p-5">
+                        <p class="text-white/60 text-xs leading-relaxed max-w-xl">Want Coach Tambou for your team or academy? Tactical coaching plus sports psychology — focus, confidence, and godly discipline.</p>
+                        <a href="#/connect" class="shrink-0 inline-flex items-center gap-2 bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-6 py-3 rounded-full font-bold text-xs hover:scale-105 transition-transform"><i class="fa-solid fa-whistle"></i> Book a Session</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- INFINITE CAROUSEL -->
         <section class="mt-20 fade-up delay-200 relative w-full overflow-hidden rounded-2xl glass-card py-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
             <div class="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0a0a0c] to-transparent z-10 pointer-events-none rounded-l-2xl"></div>
@@ -1210,14 +1274,14 @@
                 <div>
                     <p class="text-[11px] font-bold tracking-widest uppercase text-white/50 mb-4">Explore</p>
                     <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/65">
-                        <a href="#tab-about" onclick="switchPageTab('about'); return false;" class="hover:text-studio-cyan">About</a>
-                        <a href="#tab-expertise" onclick="switchPageTab('expertise'); return false;" class="hover:text-studio-cyan">Expertise</a>
-                        <a href="#tab-library" onclick="switchPageTab('library'); return false;" class="hover:text-studio-cyan">Free Library</a>
-                        <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="hover:text-amber-300">Student Resources</a>
-                        <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="hover:text-studio-cyan">Journey</a>
-                        <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan">FAQ</a>
-                        <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="hover:text-studio-cyan">Testimonies</a>
-                        <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan">Contact</a>
+                        <a href="#/discover" class="hover:text-studio-cyan">Discover</a>
+                        <a href="#/library" class="hover:text-studio-cyan">Library & Study</a>
+                        <a href="#/connect" class="hover:text-studio-cyan">Journey & Connect</a>
+                        <a href="#/gallery" class="hover:text-studio-cyan">Gallery</a>
+                        <a href="#/library" class="hover:text-amber-300">Student Resources</a>
+                        <a href="#/connect" class="hover:text-studio-cyan">Testimonies</a>
+                        <a href="#/connect" class="hover:text-studio-cyan">FAQ</a>
+                        <a href="#/connect" class="hover:text-studio-cyan">Contact</a>
                     </div>
                 </div>
                 <div>
@@ -1233,7 +1297,7 @@
             </div>
             <div class="border-t border-white/10 mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <p class="text-[11px] text-white/40 font-medium">© 2026 Pastor E.D. Tambou, PhD. All rights reserved. Soli Deo Gloria.</p>
-                <a href="#top" onclick="switchPageTab('home'); return false;" class="text-[11px] font-bold text-studio-cyan hover:text-white transition-colors"><i class="fa-solid fa-arrow-up mr-1"></i> Back to top</a>
+                <a href="#/discover" class="text-[11px] font-bold text-studio-cyan hover:text-white transition-colors"><i class="fa-solid fa-arrow-up mr-1"></i> Back to top</a>
             </div>
         </footer>
     
@@ -1489,50 +1553,103 @@
             renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
         });
         }
-        // Page-tab interface: each tab feels like its own page (layout untouched)
-        const pageTabTitles = { home: 'Welcome', about: 'About', expertise: 'Expertise', library: 'Library', ebooks: 'E-Books', student: 'Student Resource Center', journey: 'Journey', contact: 'FAQ & Contact' };
-        function switchPageTab(tabId, pushHash = true) {
-            const panels = document.querySelectorAll('.page-tab-panel');
-            const btns = document.querySelectorAll('[data-page-tab-btn]');
-            let found = false;
-            panels.forEach(p => {
-                const show = p.getAttribute('data-page-tab') === tabId;
-                if (show) found = true;
-                p.classList.toggle('hidden-tab', !show);
-                p.classList.toggle('hidden', !show);
-            });
-            if (!found) return;
-            btns.forEach(b => {
-                const active = b.getAttribute('data-page-tab-btn') === tabId;
-                b.classList.toggle('active', active);
-                b.setAttribute('aria-selected', active ? 'true' : 'false');
-            });
-            if (pushHash) history.replaceState(null, '', '#tab-' + tabId);
-            const titles = pageTabTitles[tabId] ? ' | ' + pageTabTitles[tabId] : '';
-            document.title = 'Pastor Dr. Tambou Donatus | Theology, Hebrew & Sports Psychology' + titles;
-            const activePanel = document.querySelector('.page-tab-panel[data-page-tab="' + tabId + '"]');
-            if (activePanel) {
-                activePanel.classList.remove('fade-up');
-                void activePanel.offsetWidth;
-                activePanel.classList.add('fade-up');
+        // SPA hash router: 4 grouped tabs (Discover / Library & Study / Journey & Connect / Gallery)
+        const spaTitles = { discover: 'Discover', library: 'Library & Study', connect: 'Journey & Connect', gallery: 'Football Gallery' };
+        const spaBaseTitle = 'Pastor Dr. Tambou Donatus | Theology, Hebrew & Sports Psychology';
+        function spaRouteFromHash() {
+            let hash = (location.hash || '').replace(/^#\/?/, '').split('?')[0].split('/')[0].toLowerCase().trim();
+            const valid = ['discover', 'library', 'connect', 'gallery'];
+            if (valid.includes(hash)) return hash;
+            // Legacy redirects: old 8-route hashes, tab hashes, and section anchors
+            const legacy = (location.hash || '').replace('#', '').replace(/^\//, '');
+            if (legacy.startsWith('tab-')) {
+                const t = legacy.replace('tab-', '');
+                if (valid.includes(t)) return t;
+                const oldMap = { home: 'discover', about: 'discover', expertise: 'discover', library: 'library', ebooks: 'library', student: 'library', journey: 'connect', contact: 'connect' };
+                if (oldMap[t]) return oldMap[t];
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const map = { home: 'discover', about: 'discover', expertise: 'discover', library: 'library', ebooks: 'library', student: 'library', journey: 'connect', contact: 'connect', gallery: 'gallery', 'about-section': 'discover', 'services-grid': 'discover', 'publications': 'library', 'new-ebooks': 'library', 'student-resources': 'library', 'testimonies': 'connect', 'faq': 'connect', 'connect': 'connect', 'top': 'discover', '': 'discover' };
+            if (map[legacy] || map[hash]) return map[legacy] || map[hash];
+            if (!location.hash || location.hash === '#') return 'discover';
+            return null; // unknown -> fallback to discover
+        }
+        function renderSpaRoute() {
+            let route = spaRouteFromHash();
+            if (!route) route = 'discover';
+            const views = document.querySelectorAll('.spa-view');
+            let found = false;
+            views.forEach(v => {
+                const show = v.getAttribute('data-view') === route;
+                if (show) found = true;
+                v.classList.toggle('hidden-view', !show);
+                v.classList.toggle('hidden', !show);
+            });
+            if (!found) route = 'discover';
+            document.querySelectorAll('[data-spa-link]').forEach(a => {
+                const active = a.getAttribute('data-spa-link') === route;
+                a.classList.toggle('active', active);
+                if (a.getAttribute('role') === 'tab') a.setAttribute('aria-selected', active ? 'true' : 'false');
+                if (active) a.setAttribute('aria-current', 'page');
+                else a.removeAttribute('aria-current');
+            });
+            document.title = spaBaseTitle + (spaTitles[route] ? ' | ' + spaTitles[route] : '');
+            const activeViews = document.querySelectorAll('.spa-view[data-view="' + route + '"]');
+            activeViews.forEach((activeView, i) => {
+                activeView.classList.remove('fade-up');
+                void activeView.offsetWidth;
+                activeView.style.animationDelay = Math.min(i * 0.06, 0.3) + 's';
+                activeView.classList.add('fade-up');
+            });
+            window.scrollTo({ top: 0, behavior: 'auto' });
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenu && !mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+            // Re-trigger counters inside the newly visible view
+            if (typeof observeCounters === 'function') observeCounters();
         }
-        function initPageTabs() {
-            const hash = (location.hash || '').replace('#', '');
-            const map = { 'about-section': 'about', 'services-grid': 'expertise', 'publications': 'library', 'new-ebooks': 'ebooks', 'student-resources': 'student', 'journey': 'journey', 'testimonies': 'journey', 'faq': 'contact', 'connect': 'contact', 'top': 'home' };
-            let tab = 'home';
-            if (hash.startsWith('tab-')) tab = hash.replace('tab-', '');
-            else if (map[hash]) tab = map[hash];
-            switchPageTab(tab, false);
-        }
-        document.addEventListener('DOMContentLoaded', initPageTabs);
-        window.addEventListener('hashchange', () => {
-            const hash = (location.hash || '').replace('#', '');
-            if (hash.startsWith('tab-')) switchPageTab(hash.replace('tab-', ''), false);
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!location.hash || location.hash === '#') history.replaceState(null, '', '#/discover');
+            // Normalize legacy hashes to new router format
+            const normalized = spaRouteFromHash();
+            if (normalized && location.hash !== '#/' + normalized) history.replaceState(null, '', '#/' + normalized);
+            renderSpaRoute();
         });
+        window.addEventListener('hashchange', renderSpaRoute);
+        // Back-to-top visibility
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('back-to-top');
+            if (btn) btn.classList.toggle('show', window.scrollY > 600);
+        }, { passive: true });
+        // Gallery lightbox (sources mirror #gallery-grid order)
+        const galleryImages = [
+            { src: '6.jpg', caption: 'Tactical Session' },
+            { src: '12.jpg', caption: 'Team Training' },
+            { src: '13.jpg', caption: 'Coaching Moment' },
+            { src: '11.jpg', caption: 'Match Day Focus' },
+            { src: '15.jpg', caption: 'On The Pitch' },
+            { src: '16.jpg', caption: 'Player Focus' },
+            { src: '2.jpg', caption: 'Discipline Drill' },
+            { src: '1.jpg', caption: 'Strategy Review' },
+            { src: '3.jpg', caption: 'Sports Ministry' },
+            { src: '7.jpg', caption: 'Victory Celebration' }
+        ];
+        let lightboxIndex = 0;
+        function openLightbox(i) {
+            lightboxIndex = (i + galleryImages.length) % galleryImages.length;
+            const item = galleryImages[lightboxIndex];
+            const img = document.getElementById('lightbox-img');
+            img.onerror = () => { img.onerror = null; img.src = 't.jpg'; };
+            img.src = item.src;
+            img.alt = item.caption;
+            document.getElementById('lightbox-caption').innerText = item.caption;
+            document.getElementById('lightbox-counter').innerText = (lightboxIndex + 1) + ' / ' + galleryImages.length;
+            document.getElementById('gallery-lightbox').classList.remove('hidden-lightbox');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('gallery-lightbox').classList.add('hidden-lightbox');
+            document.body.style.overflow = 'auto';
+        }
+        function stepLightbox(dir) { openLightbox(lightboxIndex + dir); }
         // Tab switching function for publications
         function switchLibraryTab(tabId) {
             const freeDownloadsTab = document.getElementById('tab-free-downloads');
@@ -1617,12 +1734,13 @@
         }
         setInterval(() => rotateVerse(1), 8000);
 
-        // Counters
-        const counters = document.querySelectorAll('.counter');
+        // Counters (re-observable when SPA views change)
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const el = entry.target;
+                    if (el.dataset.counted) return;
+                    el.dataset.counted = '1';
                     const target = parseInt(el.getAttribute('data-target'), 10);
                     let current = 0;
                     const step = Math.max(1, Math.ceil(target / 60));
@@ -1635,7 +1753,12 @@
                 }
             });
         }, { threshold: 0.5 });
-        counters.forEach(c => counterObserver.observe(c));
+        function observeCounters() {
+            document.querySelectorAll('.counter').forEach(c => {
+                if (!c.dataset.counted) counterObserver.observe(c);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', observeCounters);
 
         // Student resources filter + placeholder handler
         let activeTag = 'all';
@@ -1681,110 +1804,26 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+            const lb = document.getElementById('gallery-lightbox');
+            if (lb && !lb.classList.contains('hidden-lightbox')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') stepLightbox(-1);
+                if (e.key === 'ArrowRight') stepLightbox(1);
+            }
         });
     </script>
-    <!-- FOOTBALL GALLERY OVERLAY (HIDDEN BY DEFAULT) -->
-    <div id="football-gallery" class="hidden fixed inset-0 z-[100] bg-[#0a0a0c]/95 backdrop-blur-2xl overflow-y-auto">
-        <div class="min-h-screen flex flex-col p-4 md:p-8 max-w-7xl mx-auto w-full">
-            
-            <!-- Gallery Header -->
-            <div class="flex items-center justify-between py-4 border-b border-white/10 mb-8 sticky top-0 bg-[#0a0a0c]/90 backdrop-blur-md z-10 rounded-xl px-4 md:px-8 mt-2">
-                <div>
-                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-cyan/10 text-studio-cyan text-[10px] font-bold tracking-wider mb-2 border border-studio-cyan/20">
-                        <i class="fa-solid fa-futbol"></i> SPORTS MINISTRY
-                    </span>
-                    <h2 class="text-2xl md:text-3xl text-white font-extrabold">Football <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Gallery</span></h2>
-                </div>
-                <button onclick="document.getElementById('football-gallery').classList.add('hidden'); document.body.style.overflow='auto';" class="bg-white/10 hover:bg-studio-cyan border border-white/20 hover:border-studio-cyan text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-lg group">
-                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> <span class="hidden sm:inline">Back</span>
-                </button>
-            </div>
-
-            <!-- Gallery Grid (10 Images) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 pb-20 px-4 md:px-0">
-                
-                <!-- Image 1 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff10.jpg" alt="Football Action 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Match Day Moment</span>
-                    </div>
-                </div>
-
-                <!-- Image 2 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff5.jpg" alt="Football Action 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Tactical Session</span>
-                    </div>
-                </div>
-
-                <!-- Image 3 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff3.jpg" alt="Football Action 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Team Training</span>
-                    </div>
-                </div>
-
-                <!-- Image 4 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff11.jpg" alt="Football Action 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Mental Toughness</span>
-                    </div>
-                </div>
-
-                <!-- Image 5 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff1.jpg" alt="Football Action 5" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">On The Pitch</span>
-                    </div>
-                </div>
-
-                <!-- Image 6 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff7.jpg" alt="Football Action 6" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Player Focus</span>
-                    </div>
-                </div>
-
-                <!-- Image 7 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ffd.jpg" alt="Football Action 7" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Discipline Drill</span>
-                    </div>
-                </div>
-
-                <!-- Image 8 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff5.jpg" alt="Football Action 8" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Strategy Review</span>
-                    </div>
-                </div>
-
-                <!-- Image 9 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ff6.jpg" alt="Football Action 9" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Sports Ministry</span>
-                    </div>
-                </div>
-
-                <!-- Image 10 -->
-                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg cursor-pointer">
-                    <img src="ffv.jpg" alt="Football Action 10" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <span class="text-white font-bold text-xs tracking-wider">Victory Celebration</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <!-- GALLERY LIGHTBOX -->
+    <div id="gallery-lightbox" onclick="if(event.target===this)closeLightbox()" class="hidden-lightbox fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
+        <button onclick="closeLightbox()" aria-label="Close viewer" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-studio-cyan border border-white/20 text-white flex items-center justify-center transition-all"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="stepLightbox(-1)" aria-label="Previous image" class="absolute left-2 md:left-6 w-11 h-11 rounded-full bg-white/10 hover:bg-studio-cyan border border-white/20 text-white flex items-center justify-center transition-all"><i class="fa-solid fa-chevron-left"></i></button>
+        <button onclick="stepLightbox(1)" aria-label="Next image" class="absolute right-2 md:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-studio-cyan border border-white/20 text-white flex items-center justify-center transition-all"><i class="fa-solid fa-chevron-right"></i></button>
+        <figure class="max-w-4xl w-full text-center">
+            <img id="lightbox-img" src="t.jpg" alt="Gallery image" class="w-full max-h-[75vh] object-contain rounded-2xl border border-white/15 shadow-2xl">
+            <figcaption class="mt-3 flex items-center justify-center gap-3 text-xs font-bold text-white/70"><span id="lightbox-caption">Gallery</span><span class="text-white/30">·</span><span id="lightbox-counter">1 / 10</span></figcaption>
+        </figure>
     </div>
+
+    <!-- BACK TO TOP -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-gradient-to-r from-studio-cyan to-studio-purple text-white shadow-2xl flex items-center justify-center hover:scale-110"><i class="fa-solid fa-arrow-up"></i></button>
 </body>
 </html>
