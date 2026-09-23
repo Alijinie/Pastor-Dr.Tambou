@@ -95,6 +95,11 @@
         details.faq-item summary::-webkit-details-marker { display: none; }
         details.faq-item[open] .faq-chevron { transform: rotate(180deg); }
         .faq-chevron { transition: transform 0.3s ease; }
+        /* Page-tab interface: each tab feels like its own page, layout untouched */
+        .page-tab-btn { border-bottom: 2px solid transparent; color: rgba(255,255,255,0.6); }
+        .page-tab-btn:hover { color: #fff; }
+        .page-tab-btn.active { border-bottom-color: #06b6d4; color: #06b6d4; }
+        .page-tab-panel.hidden-tab { display: none; }
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-studio-purple selection:text-white overflow-x-hidden">
@@ -116,7 +121,7 @@
     <!-- STICKY NAV -->
     <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0a0a0c]/85 border-b border-white/10">
         <nav class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between gap-3">
-            <a href="#top" class="flex items-center gap-3 shrink-0">
+            <a href="#top" onclick="switchPageTab('home'); return false;" class="flex items-center gap-3 shrink-0">
                 <img src="t.jpg" alt="Dr Tambou" class="w-10 h-10 rounded-full object-cover border-2 border-studio-cyan/40">
                 <div class="leading-tight">
                     <p class="text-white font-extrabold text-sm">Pastor E.D. Tambou, PhD</p>
@@ -124,13 +129,13 @@
                 </div>
             </a>
             <div class="hidden lg:flex items-center gap-6 text-[13px] font-bold text-white/70">
-                <a href="#about-section" class="hover:text-studio-cyan transition-colors">About</a>
-                <a href="#services-grid" class="hover:text-studio-cyan transition-colors">Expertise</a>
-                <a href="#publications" class="hover:text-studio-cyan transition-colors">Library</a>
-                <a href="#student-resources" class="hover:text-studio-cyan transition-colors flex items-center gap-1"><i class="fa-solid fa-graduation-cap text-studio-purple"></i> Student Resources</a>
-                <a href="#journey" class="hover:text-studio-cyan transition-colors">Journey</a>
-                <a href="#faq" class="hover:text-studio-cyan transition-colors">FAQ</a>
-                <a href="#connect" class="hover:text-studio-cyan transition-colors">Contact</a>
+                <a href="#tab-about" onclick="switchPageTab('about'); return false;" class="hover:text-studio-cyan transition-colors">About</a>
+                <a href="#tab-expertise" onclick="switchPageTab('expertise'); return false;" class="hover:text-studio-cyan transition-colors">Expertise</a>
+                <a href="#tab-library" onclick="switchPageTab('library'); return false;" class="hover:text-studio-cyan transition-colors">Library</a>
+                <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="hover:text-studio-cyan transition-colors flex items-center gap-1"><i class="fa-solid fa-graduation-cap text-studio-purple"></i> Student Resources</a>
+                <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="hover:text-studio-cyan transition-colors">Journey</a>
+                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan transition-colors">FAQ</a>
+                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan transition-colors">Contact</a>
             </div>
             <div class="flex items-center gap-2">
                 <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I%20found%20your%20website." target="_blank" class="hidden sm:inline-flex bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-5 py-2 rounded-full font-bold text-xs hover:scale-105 transition-transform">
@@ -143,22 +148,35 @@
         </nav>
         <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
             <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/80">
-                <a href="#about-section" class="glass-card rounded-xl p-3 text-center">About</a>
-                <a href="#services-grid" class="glass-card rounded-xl p-3 text-center">Expertise</a>
-                <a href="#publications" class="glass-card rounded-xl p-3 text-center">Library</a>
-                <a href="#student-resources" class="glass-card rounded-xl p-3 text-center text-studio-cyan">Student Resources</a>
-                <a href="#journey" class="glass-card rounded-xl p-3 text-center">Journey</a>
-                <a href="#faq" class="glass-card rounded-xl p-3 text-center">FAQ</a>
-                <a href="#testimonies" class="glass-card rounded-xl p-3 text-center">Testimonies</a>
-                <a href="#connect" class="glass-card rounded-xl p-3 text-center">Contact</a>
+                <a href="#tab-about" onclick="switchPageTab('about'); return false;" class="glass-card rounded-xl p-3 text-center">About</a>
+                <a href="#tab-expertise" onclick="switchPageTab('expertise'); return false;" class="glass-card rounded-xl p-3 text-center">Expertise</a>
+                <a href="#tab-library" onclick="switchPageTab('library'); return false;" class="glass-card rounded-xl p-3 text-center">Library</a>
+                <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="glass-card rounded-xl p-3 text-center text-studio-cyan">Student Resources</a>
+                <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="glass-card rounded-xl p-3 text-center">Journey</a>
+                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="glass-card rounded-xl p-3 text-center">FAQ</a>
+                <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="glass-card rounded-xl p-3 text-center">Testimonies</a>
+                <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="glass-card rounded-xl p-3 text-center">Contact</a>
             </div>
         </div>
     </header>
 
     <main id="top" class="flex-1 pt-8 pb-32 px-4 md:px-8 max-w-7xl mx-auto w-full">
+        <!-- PAGE TAB BAR: each tab feels like its own page -->
+        <nav id="page-tabs" role="tablist" aria-label="Website sections" class="sticky top-[64px] z-30 -mx-4 md:-mx-8 px-4 md:px-8 py-3 mb-8 bg-[#0a0a0c]/85 backdrop-blur-xl border-b border-white/10">
+            <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto no-scrollbar" id="page-tabs-track">
+                <button role="tab" data-page-tab-btn="home" onclick="switchPageTab('home')" class="page-tab-btn active px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-house"></i> Home</button>
+                <button role="tab" data-page-tab-btn="about" onclick="switchPageTab('about')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> About</button>
+                <button role="tab" data-page-tab-btn="expertise" onclick="switchPageTab('expertise')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-star"></i> Expertise</button>
+                <button role="tab" data-page-tab-btn="library" onclick="switchPageTab('library')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-book-open"></i> Library</button>
+                <button role="tab" data-page-tab-btn="ebooks" onclick="switchPageTab('ebooks')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-tablet-screen-button"></i> E-Books</button>
+                <button role="tab" data-page-tab-btn="student" onclick="switchPageTab('student')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-graduation-cap"></i> Student Center</button>
+                <button role="tab" data-page-tab-btn="journey" onclick="switchPageTab('journey')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-route"></i> Journey</button>
+                <button role="tab" data-page-tab-btn="contact" onclick="switchPageTab('contact')" class="page-tab-btn px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2"><i class="fa-solid fa-envelope"></i> FAQ & Contact</button>
+            </div>
+        </nav>
         
         <!-- HERO SECTION -->
-        <section class="fade-up mb-8">
+        <section class="fade-up mb-8 page-tab-panel" data-page-tab="home" role="tabpanel">
             <div class="relative rounded-3xl overflow-hidden glass-card min-h-[450px] flex flex-col md:flex-row items-center border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="p-8 md:p-12 md:w-1/2 z-20 flex flex-col items-start justify-center h-full pointer-events-none">
@@ -178,13 +196,13 @@
                         <p class="text-studio-cyan text-[11px] font-bold mt-2 tracking-widest uppercase">— 2 Timothy 2:15 (KJV)</p>
                     </div>
                     <div class="flex gap-4 pointer-events-auto flex-wrap">
-                        <button onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+                        <button onclick="switchPageTab('expertise')" class="bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.3)]">
                             Explore Expertise
                         </button>
                         <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I'd%20like%20a%20copy%20of%20your%20C.V." target="_blank" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform backdrop-blur-md flex items-center gap-2">
                             <i class="fa-solid fa-file-arrow-down"></i> Download C.V.
                         </a>
-                        <a href="#student-resources" class="bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
+                        <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
                             <i class="fa-solid fa-graduation-cap"></i> Student Portal
                         </a>
                     </div>
@@ -222,7 +240,7 @@
         </section>
 
         <!-- DAILY WORD ROTATOR -->
-        <section class="fade-up mb-16 relative z-20">
+        <section class="fade-up mb-16 relative z-20 page-tab-panel" data-page-tab="home" role="tabpanel">
             <div class="glass-card rounded-2xl p-6 md:p-8 border border-amber-400/20 flex flex-col md:flex-row items-start md:items-center gap-4">
                 <div class="w-12 h-12 rounded-2xl bg-amber-400/15 border border-amber-400/30 flex items-center justify-center shrink-0">
                     <i class="fa-solid fa-quote-left text-amber-300 text-xl"></i>
@@ -240,7 +258,7 @@
         </section>
 
         <!-- NEW ABOUT SECTION -->
-        <section id="about-section" class="fade-up delay-100 mb-16 relative z-20">
+        <section id="about-section" class="fade-up delay-100 mb-16 relative z-20 page-tab-panel" data-page-tab="about" role="tabpanel">
             <div class="glass-card rounded-3xl p-8 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-purple/5 relative overflow-hidden">
                 <div class="absolute right-[-10%] top-[-10%] w-[300px] h-[300px] bg-studio-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
 
@@ -345,7 +363,7 @@
 
         <!-- SERVICES / EXPERTISE GRID -->
         <!-- SERVICES / EXPERTISE GRID -->
-<section id="services-grid" class="fade-up delay-100 relative z-20 scroll-mt-24">
+<section id="services-grid" class="fade-up delay-100 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="expertise" role="tabpanel">
     <div class="glass-card rounded-2xl p-6 md:p-8 mb-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -387,7 +405,7 @@
 
 
         <!-- PUBLICATIONS & TABBED LIBRARY SECTION -->
-        <section id="publications" class="fade-up delay-200 mt-20 relative z-20 scroll-mt-24">
+        <section id="publications" class="fade-up delay-200 mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="library" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
                 
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -417,7 +435,7 @@
                     <button onclick="switchLibraryTab('selar-books')" id="tab-selar-books-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-book-open"></i> Premium Books (Selar)
                     </button>
-                    <a href="#student-resources" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-amber-300/80 hover:text-amber-300 flex items-center gap-2 whitespace-nowrap">
+                    <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-amber-300/80 hover:text-amber-300 flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-graduation-cap"></i> Student Materials →
                     </a>
                 </div>
@@ -617,7 +635,7 @@
         </section>
 
         <!-- NEWLY PUBLISHED E-BOOKS -->
-        <section id="new-ebooks" class="fade-up mt-20 relative z-20 scroll-mt-24">
+        <section id="new-ebooks" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="ebooks" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden text-center">
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
                 <div class="relative z-10">
@@ -671,7 +689,7 @@
         </section>
 
         <!-- STUDENT RESOURCE CENTER (NEW) -->
-        <section id="student-resources" class="fade-up mt-20 relative z-20 scroll-mt-24">
+        <section id="student-resources" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="student" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-amber-400/25 shadow-xl shadow-amber-500/5 relative overflow-hidden">
                 <div class="absolute left-[-10%] top-[-30%] w-[350px] h-[350px] bg-amber-400/10 rounded-full blur-[90px] pointer-events-none"></div>
                 <div class="relative z-10">
@@ -810,6 +828,66 @@
                             <p class="text-[10px] text-white/35 mt-2">DOCX · Size: ~0.3 MB</p>
                         </article>
 
+                        <article data-tags="theology" data-title="systematic theology doctrine god revelation theo 201" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-studio-cyan/10 text-studio-cyan border border-studio-cyan/20">THEOLOGY · THEO 201</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Systematic Theology I — Doctrine of God & Revelation</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Placeholder lecture notes: attributes of God, revelation, and inspiration of Scripture (coming soon).</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"All scripture is given by inspiration of God." — 2 Tim. 3:16</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-theology-01-systematic-doctrine.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20THEO%20201%20Systematic%20Theology%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB · Coming soon</p>
+                        </article>
+
+                        <article data-tags="theology" data-title="pentateuch survey genesis deuteronomy ot 102" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">OLD TESTAMENT · OT 102</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Pentateuch Survey — Genesis to Deuteronomy</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Placeholder study guide: creation, covenant, exodus, and law overview (coming soon).</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"In the beginning God created the heaven and the earth." — Gen. 1:1</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-theology-02-pentateuch-survey.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20OT%20102%20Pentateuch%20Survey%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB · Coming soon</p>
+                        </article>
+
+                        <article data-tags="theology" data-title="christian apologetics world religions theo 301" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20">THEOLOGY · THEO 301</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Christian Apologetics & World Religions</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Placeholder lecture pack: defending the faith and engaging world religions with grace (coming soon).</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"Be ready always to give an answer." — 1 Pet. 3:15</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-theology-03-christian-apologetics.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20THEO%20301%20Apologetics%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB · Coming soon</p>
+                        </article>
+
+                        <article data-tags="language" data-title="biblical hebrew grammar workbook heb 102" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-studio-purple/10 text-studio-purple border border-studio-purple/20">HEBREW · HEB 102</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">PLACEHOLDER</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">Biblical Hebrew Grammar Workbook II</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Placeholder workbook: nouns, verbs, and simple sentence drills with answer key (coming soon).</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"Thy word have I hid in mine heart." — Ps. 119:11</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="placeholder-hebrew-02-grammar-workbook.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Rabbi!%20Please%20share%20HEB%20102%20Hebrew%20grammar%20workbook." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB · Coming soon</p>
+                        </article>
+
                     </div>
                     <p id="resource-empty" class="hidden text-center text-white/50 text-sm py-6">No materials match your search. Try "Hebrew", "Theology", or "Research" — or message Dr. Tambou on WhatsApp.</p>
 
@@ -835,7 +913,7 @@
         </section>
 
         <!-- MINISTRY JOURNEY TIMELINE -->
-        <section id="journey" class="fade-up mt-20 relative z-20 scroll-mt-24">
+        <section id="journey" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="journey" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-purple/20">
                 <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-cyan/10 text-studio-cyan text-[10px] font-bold tracking-wider mb-4 border border-studio-cyan/20">
                     <i class="fa-solid fa-route"></i> MINISTRY JOURNEY
@@ -887,7 +965,7 @@
         </section>
 
         <!-- HOLISTIC SPOTLIGHT -->
-        <section class="fade-up mt-12 relative z-20">
+        <section class="fade-up mt-12 relative z-20 page-tab-panel" data-page-tab="expertise" role="tabpanel">
             <div class="grid lg:grid-cols-3 gap-4">
                 <div class="glass-card rounded-3xl p-6 border border-studio-cyan/20 flex flex-col">
     <i class="fa-solid fa-dumbbell text-studio-cyan text-2xl mb-3"></i>
@@ -923,7 +1001,7 @@
         </section>
 
         <!-- TESTIMONIES -->
-        <section id="testimonies" class="fade-up mt-20 relative z-20 scroll-mt-24">
+        <section id="testimonies" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="journey" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-white/10">
                 <div class="text-center mb-8">
                     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 text-emerald-300 text-[10px] font-bold tracking-wider mb-4 border border-emerald-400/30">
@@ -953,7 +1031,7 @@
         </section>
 
         <!-- FAQ -->
-        <section id="faq" class="fade-up mt-20 relative z-20 scroll-mt-24">
+        <section id="faq" class="fade-up mt-20 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="contact" role="tabpanel">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/15">
                 <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-white/70 text-[10px] font-bold tracking-wider mb-4 border border-white/10">
                     <i class="fa-solid fa-circle-question text-studio-cyan"></i> COMMON QUESTIONS
@@ -1010,7 +1088,7 @@
         </section>
 
         <!-- CONNECT DOWN ARROW -->
-        <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200">
+        <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200 page-tab-panel" data-page-tab="contact" role="tabpanel">
             <a href="#connect" class="group flex flex-col items-center gap-3 opacity-100 hover:opacity-100 transition-opacity duration-300">
                 <div class="w-6 h-10 border-2 border-studio-purple/50 rounded-full flex justify-center pt-2 relative shadow-[0_0_15px_rgba(139,92,246,0.1)] group-hover:border-studio-cyan group-hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 backdrop-blur-sm bg-black/20">
                     <i class="fa-solid fa-angles-down text-studio-cyan text-[30px] animate-bounce"></i>
@@ -1019,7 +1097,7 @@
         </div>
 
         <!-- CONTACT SECTION -->
-        <section id="connect" class="fade-up mt-10 relative z-20 scroll-mt-24">
+        <section id="connect" class="fade-up mt-10 relative z-20 scroll-mt-24 page-tab-panel" data-page-tab="contact" role="tabpanel">
             <div class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="absolute top-[-50%] left-[-10%] w-[300px] h-[300px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -1132,14 +1210,14 @@
                 <div>
                     <p class="text-[11px] font-bold tracking-widest uppercase text-white/50 mb-4">Explore</p>
                     <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/65">
-                        <a href="#about-section" class="hover:text-studio-cyan">About</a>
-                        <a href="#services-grid" class="hover:text-studio-cyan">Expertise</a>
-                        <a href="#publications" class="hover:text-studio-cyan">Free Library</a>
-                        <a href="#student-resources" class="hover:text-amber-300">Student Resources</a>
-                        <a href="#journey" class="hover:text-studio-cyan">Journey</a>
-                        <a href="#faq" class="hover:text-studio-cyan">FAQ</a>
-                        <a href="#testimonies" class="hover:text-studio-cyan">Testimonies</a>
-                        <a href="#connect" class="hover:text-studio-cyan">Contact</a>
+                        <a href="#tab-about" onclick="switchPageTab('about'); return false;" class="hover:text-studio-cyan">About</a>
+                        <a href="#tab-expertise" onclick="switchPageTab('expertise'); return false;" class="hover:text-studio-cyan">Expertise</a>
+                        <a href="#tab-library" onclick="switchPageTab('library'); return false;" class="hover:text-studio-cyan">Free Library</a>
+                        <a href="#tab-student" onclick="switchPageTab('student'); return false;" class="hover:text-amber-300">Student Resources</a>
+                        <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="hover:text-studio-cyan">Journey</a>
+                        <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan">FAQ</a>
+                        <a href="#tab-journey" onclick="switchPageTab('journey'); return false;" class="hover:text-studio-cyan">Testimonies</a>
+                        <a href="#tab-contact" onclick="switchPageTab('contact'); return false;" class="hover:text-studio-cyan">Contact</a>
                     </div>
                 </div>
                 <div>
@@ -1155,7 +1233,7 @@
             </div>
             <div class="border-t border-white/10 mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <p class="text-[11px] text-white/40 font-medium">© 2026 Pastor E.D. Tambou, PhD. All rights reserved. Soli Deo Gloria.</p>
-                <a href="#top" class="text-[11px] font-bold text-studio-cyan hover:text-white transition-colors"><i class="fa-solid fa-arrow-up mr-1"></i> Back to top</a>
+                <a href="#top" onclick="switchPageTab('home'); return false;" class="text-[11px] font-bold text-studio-cyan hover:text-white transition-colors"><i class="fa-solid fa-arrow-up mr-1"></i> Back to top</a>
             </div>
         </footer>
     
@@ -1411,6 +1489,50 @@
             renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
         });
         }
+        // Page-tab interface: each tab feels like its own page (layout untouched)
+        const pageTabTitles = { home: 'Welcome', about: 'About', expertise: 'Expertise', library: 'Library', ebooks: 'E-Books', student: 'Student Resource Center', journey: 'Journey', contact: 'FAQ & Contact' };
+        function switchPageTab(tabId, pushHash = true) {
+            const panels = document.querySelectorAll('.page-tab-panel');
+            const btns = document.querySelectorAll('[data-page-tab-btn]');
+            let found = false;
+            panels.forEach(p => {
+                const show = p.getAttribute('data-page-tab') === tabId;
+                if (show) found = true;
+                p.classList.toggle('hidden-tab', !show);
+                p.classList.toggle('hidden', !show);
+            });
+            if (!found) return;
+            btns.forEach(b => {
+                const active = b.getAttribute('data-page-tab-btn') === tabId;
+                b.classList.toggle('active', active);
+                b.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            if (pushHash) history.replaceState(null, '', '#tab-' + tabId);
+            const titles = pageTabTitles[tabId] ? ' | ' + pageTabTitles[tabId] : '';
+            document.title = 'Pastor Dr. Tambou Donatus | Theology, Hebrew & Sports Psychology' + titles;
+            const activePanel = document.querySelector('.page-tab-panel[data-page-tab="' + tabId + '"]');
+            if (activePanel) {
+                activePanel.classList.remove('fade-up');
+                void activePanel.offsetWidth;
+                activePanel.classList.add('fade-up');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+        }
+        function initPageTabs() {
+            const hash = (location.hash || '').replace('#', '');
+            const map = { 'about-section': 'about', 'services-grid': 'expertise', 'publications': 'library', 'new-ebooks': 'ebooks', 'student-resources': 'student', 'journey': 'journey', 'testimonies': 'journey', 'faq': 'contact', 'connect': 'contact', 'top': 'home' };
+            let tab = 'home';
+            if (hash.startsWith('tab-')) tab = hash.replace('tab-', '');
+            else if (map[hash]) tab = map[hash];
+            switchPageTab(tab, false);
+        }
+        document.addEventListener('DOMContentLoaded', initPageTabs);
+        window.addEventListener('hashchange', () => {
+            const hash = (location.hash || '').replace('#', '');
+            if (hash.startsWith('tab-')) switchPageTab(hash.replace('tab-', ''), false);
+        });
         // Tab switching function for publications
         function switchLibraryTab(tabId) {
             const freeDownloadsTab = document.getElementById('tab-free-downloads');
