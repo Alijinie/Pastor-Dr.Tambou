@@ -95,18 +95,6 @@
         details.faq-item summary::-webkit-details-marker { display: none; }
         details.faq-item[open] .faq-chevron { transform: rotate(180deg); }
         .faq-chevron { transition: transform 0.3s ease; }
-        /* SPA router: grouped views, premium 4-tab bar */
-        .spa-nav-link.active { color: #06b6d4; }
-        .spa-view.hidden-view { display: none; }
-        .tab-pill { position: relative; border: 1px solid rgba(255,255,255,0.10); color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.04); transition: all .3s cubic-bezier(.16,1,.3,1); }
-        .tab-pill:hover { color: #fff; border-color: rgba(6,182,212,0.45); transform: translateY(-1px); }
-        .tab-pill.active { color: #fff; border-color: transparent; background: linear-gradient(90deg, rgba(6,182,212,.9), rgba(139,92,246,.9)); box-shadow: 0 8px 24px rgba(6,182,212,.25); }
-        .tab-pill.active i { color: #fff; }
-        .section-eyebrow { display: inline-flex; align-items: center; gap: .5rem; padding: .25rem .75rem; border-radius: 9999px; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-        .group-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(6,182,212,.35), rgba(139,92,246,.35), transparent); }
-        #back-to-top { transition: all .3s ease; opacity: 0; pointer-events: none; transform: translateY(12px); }
-        #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
-        #gallery-lightbox.hidden-lightbox { display: none; }
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-studio-purple selection:text-white overflow-x-hidden">
@@ -128,7 +116,7 @@
     <!-- STICKY NAV -->
     <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0a0a0c]/85 border-b border-white/10">
         <nav class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between gap-3">
-            <a href="#/discover" class="flex items-center gap-3 shrink-0">
+            <a href="#top" class="flex items-center gap-3 shrink-0">
                 <img src="t.jpg" alt="Dr Tambou" class="w-10 h-10 rounded-full object-cover border-2 border-studio-cyan/40">
                 <div class="leading-tight">
                     <p class="text-white font-extrabold text-sm">Pastor E.D. Tambou, PhD</p>
@@ -136,10 +124,13 @@
                 </div>
             </a>
             <div class="hidden lg:flex items-center gap-6 text-[13px] font-bold text-white/70">
-                <a href="#/discover" data-spa-link="discover" class="spa-nav-link hover:text-studio-cyan transition-colors">Discover</a>
-                <a href="#/library" data-spa-link="library" class="spa-nav-link hover:text-studio-cyan transition-colors">Library & Study</a>
-                <a href="#/connect" data-spa-link="connect" class="spa-nav-link hover:text-studio-cyan transition-colors">Journey & Connect</a>
-                <a href="#/gallery" data-spa-link="gallery" class="spa-nav-link hover:text-studio-cyan transition-colors">Gallery</a>
+                <a href="#about-section" class="hover:text-studio-cyan transition-colors">About</a>
+                <a href="#services-grid" class="hover:text-studio-cyan transition-colors">Expertise</a>
+                <a href="#publications" class="hover:text-studio-cyan transition-colors">Library</a>
+                <a href="#student-resources" class="hover:text-studio-cyan transition-colors flex items-center gap-1"><i class="fa-solid fa-graduation-cap text-studio-purple"></i> Student Resources</a>
+                <a href="#journey" class="hover:text-studio-cyan transition-colors">Journey</a>
+                <a href="#faq" class="hover:text-studio-cyan transition-colors">FAQ</a>
+                <a href="#connect" class="hover:text-studio-cyan transition-colors">Contact</a>
             </div>
             <div class="flex items-center gap-2">
                 <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I%20found%20your%20website." target="_blank" class="hidden sm:inline-flex bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-5 py-2 rounded-full font-bold text-xs hover:scale-105 transition-transform">
@@ -152,29 +143,22 @@
         </nav>
         <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
             <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/80">
-                <a href="#/discover" data-spa-link="discover" class="spa-nav-link glass-card rounded-xl p-3 text-center">Discover</a>
-                <a href="#/library" data-spa-link="library" class="spa-nav-link glass-card rounded-xl p-3 text-center">Library & Study</a>
-                <a href="#/connect" data-spa-link="connect" class="spa-nav-link glass-card rounded-xl p-3 text-center">Journey & Connect</a>
-                <a href="#/gallery" data-spa-link="gallery" class="spa-nav-link glass-card rounded-xl p-3 text-center">Gallery</a>
+                <a href="#about-section" class="glass-card rounded-xl p-3 text-center">About</a>
+                <a href="#services-grid" class="glass-card rounded-xl p-3 text-center">Expertise</a>
+                <a href="#publications" class="glass-card rounded-xl p-3 text-center">Library</a>
+                <a href="#student-resources" class="glass-card rounded-xl p-3 text-center text-studio-cyan">Student Resources</a>
+                <a href="#journey" class="glass-card rounded-xl p-3 text-center">Journey</a>
+                <a href="#faq" class="glass-card rounded-xl p-3 text-center">FAQ</a>
+                <a href="#testimonies" class="glass-card rounded-xl p-3 text-center">Testimonies</a>
+                <a href="#connect" class="glass-card rounded-xl p-3 text-center">Contact</a>
             </div>
         </div>
     </header>
 
-    <!-- PREMIUM 4-TAB BAR -->
-    <nav id="spa-tabs" role="tablist" aria-label="Website sections" class="sticky top-[64px] z-30 px-4 md:px-8 py-3 mb-8 bg-[#0a0a0c]/85 backdrop-blur-xl border-b border-white/10">
-        <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto no-scrollbar" id="spa-tabs-track">
-            <a href="#/discover" role="tab" data-spa-link="discover" class="tab-pill active px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-compass text-studio-cyan"></i> Discover</a>
-            <a href="#/library" role="tab" data-spa-link="library" class="tab-pill px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-book-open text-studio-cyan"></i> Library & Study</a>
-            <a href="#/connect" role="tab" data-spa-link="connect" class="tab-pill px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-route text-studio-purple"></i> Journey & Connect</a>
-            <a href="#/gallery" role="tab" data-spa-link="gallery" class="tab-pill px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-2"><i class="fa-solid fa-images text-amber-300"></i> Gallery</a>
-        </div>
-    </nav>
-
     <main id="top" class="flex-1 pt-8 pb-32 px-4 md:px-8 max-w-7xl mx-auto w-full">
-        <!-- SPA views: 4 grouped tabs (Discover / Library & Study / Journey & Connect / Gallery), stacked scroll inside each tab -->
         
         <!-- HERO SECTION -->
-        <section class="fade-up mb-8 spa-view" data-view="discover" role="tabpanel">
+        <section class="fade-up mb-8">
             <div class="relative rounded-3xl overflow-hidden glass-card min-h-[450px] flex flex-col md:flex-row items-center border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="p-8 md:p-12 md:w-1/2 z-20 flex flex-col items-start justify-center h-full pointer-events-none">
@@ -194,13 +178,13 @@
                         <p class="text-studio-cyan text-[11px] font-bold mt-2 tracking-widest uppercase">— 2 Timothy 2:15 (KJV)</p>
                     </div>
                     <div class="flex gap-4 pointer-events-auto flex-wrap">
-                        <a href="#/discover" class="bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+                        <button onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.3)]">
                             Explore Expertise
-                        </a>
+                        </button>
                         <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20I'd%20like%20a%20copy%20of%20your%20C.V." target="_blank" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform backdrop-blur-md flex items-center gap-2">
                             <i class="fa-solid fa-file-arrow-down"></i> Download C.V.
                         </a>
-                        <a href="#/library" class="bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
+                        <a href="#student-resources" class="bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 px-8 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
                             <i class="fa-solid fa-graduation-cap"></i> Student Portal
                         </a>
                     </div>
@@ -238,7 +222,7 @@
         </section>
 
         <!-- DAILY WORD ROTATOR -->
-        <section class="fade-up mb-16 relative z-20 spa-view" data-view="discover" role="tabpanel">
+        <section class="fade-up mb-16 relative z-20">
             <div class="glass-card rounded-2xl p-6 md:p-8 border border-amber-400/20 flex flex-col md:flex-row items-start md:items-center gap-4">
                 <div class="w-12 h-12 rounded-2xl bg-amber-400/15 border border-amber-400/30 flex items-center justify-center shrink-0">
                     <i class="fa-solid fa-quote-left text-amber-300 text-xl"></i>
@@ -256,7 +240,7 @@
         </section>
 
         <!-- NEW ABOUT SECTION -->
-        <section id="about-section" class="fade-up delay-100 mb-16 relative z-20 spa-view" data-view="discover" role="tabpanel">
+        <section id="about-section" class="fade-up delay-100 mb-16 relative z-20">
             <div class="glass-card rounded-3xl p-8 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-purple/5 relative overflow-hidden">
                 <div class="absolute right-[-10%] top-[-10%] w-[300px] h-[300px] bg-studio-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
 
@@ -360,50 +344,47 @@
         </section>
 
         <!-- SERVICES / EXPERTISE GRID -->
-        <!-- SERVICES / EXPERTISE GRID -->
-<section id="services-grid" class="fade-up delay-100 relative z-20 scroll-mt-24 spa-view" data-view="discover" role="tabpanel">
-    <div class="glass-card rounded-2xl p-6 md:p-8 mb-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-                <h2 class="text-2xl md:text-3xl text-white font-extrabold tracking-tight">
-                    Areas of <span class="text-studio-cyan">Expertise</span>
-                </h2>
-                <p class="text-studio-purple font-bold text-xs md:text-sm mt-1.5 uppercase tracking-wider">
-                    Click any of the options below
-                </p>
+        <section id="services-grid" class="fade-up delay-100 relative z-20 scroll-mt-24">
+            <div class="glass-card rounded-2xl p-6 md:p-8 mb-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl text-white font-extrabold tracking-tight">
+                            Areas of <span class="text-studio-cyan">Expertise</span>
+                        </h2>
+                        <p class="text-studio-purple font-bold text-xs md:text-sm mt-1.5 uppercase tracking-wider">
+                            Click any of the options below
+                        </p>
+                    </div>
+                    <div class="verse-card rounded-xl px-4 py-3 max-w-md">
+                        <p class="font-serif italic text-white/85 text-xs">"And whatsoever ye do, do it heartily, as to the Lord, and not unto men."</p>
+                        <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— COLOSSIANS 3:23</p>
+                    </div>
+                </div>
+                <!-- Holistic model strip -->
+                <div class="grid grid-cols-3 gap-2 md:gap-3 mt-6 text-center">
+                    <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+                        <i class="fa-solid fa-cross text-studio-cyan text-lg mb-1"></i>
+                        <p class="text-white font-bold text-xs">SPIRIT</p>
+                        <p class="text-[10px] text-white/50">Theology · Prayer · Pastoral care</p>
+                    </div>
+                    <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+                        <i class="fa-solid fa-brain text-studio-purple text-lg mb-1"></i>
+                        <p class="text-white font-bold text-xs">MIND</p>
+                        <p class="text-[10px] text-white/50">Psychology · Hebrew & Greek · Research</p>
+                    </div>
+                    <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+                        <i class="fa-solid fa-person-running text-emerald-400 text-lg mb-1"></i>
+                        <p class="text-white font-bold text-xs">BODY</p>
+                        <p class="text-[10px] text-white/50">Coaching · Fitness · Discipline</p>
+                    </div>
+                </div>
             </div>
-            <div class="verse-card rounded-xl px-4 py-3 max-w-md">
-                <p class="font-serif italic text-white/85 text-xs">"And whatsoever ye do, do it heartily, as to the Lord, and not unto men."</p>
-                <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— COLOSSIANS 3:23</p>
-            </div>
-        </div>
-        <!-- Holistic model strip -->
-        <div class="grid grid-cols-3 gap-2 md:gap-3 mt-6 text-center">
-            <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
-                <i class="fa-solid fa-cross text-studio-cyan text-lg mb-1"></i>
-                <p class="text-white font-bold text-xs">SPIRIT</p>
-                <p class="text-[10px] text-white/50">Theology · Prayer · Pastoral care</p>
-            </div>
-            <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
-                <i class="fa-solid fa-brain text-studio-purple text-lg mb-1"></i>
-                <p class="text-white font-bold text-xs">MIND</p>
-                <p class="text-[10px] text-white/50">Psychology · Hebrew & Greek · Research</p>
-            </div>
-            <div class="rounded-xl bg-white/[0.03] border border-white/10 p-3">
-                <i class="fa-solid fa-person-running text-emerald-400 text-lg mb-1"></i>
-                <p class="text-white font-bold text-xs">BODY</p>
-                <p class="text-[10px] text-white/50">Coaching · Fitness · Discipline</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Changed: grid-cols-1 to grid-cols-2, and adjusted the gap for mobile -->
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6" id="products-container"></div>
-</section>
-
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="products-container"></div>
+        </section>
 
         <!-- PUBLICATIONS & TABBED LIBRARY SECTION -->
-        <section id="publications" class="fade-up delay-200 mt-20 relative z-20 scroll-mt-24 spa-view" data-view="library" role="tabpanel">
+        <section id="publications" class="fade-up delay-200 mt-20 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
                 
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -433,7 +414,7 @@
                     <button onclick="switchLibraryTab('selar-books')" id="tab-selar-books-btn" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-white/60 hover:text-white flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-book-open"></i> Premium Books (Selar)
                     </button>
-                    <a href="#/library" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-amber-300/80 hover:text-amber-300 flex items-center gap-2 whitespace-nowrap">
+                    <a href="#student-resources" class="px-6 py-3 text-sm font-bold transition-all duration-300 border-b-2 border-transparent text-amber-300/80 hover:text-amber-300 flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-graduation-cap"></i> Student Materials →
                     </a>
                 </div>
@@ -633,7 +614,7 @@
         </section>
 
         <!-- NEWLY PUBLISHED E-BOOKS -->
-        <section id="new-ebooks" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="library" role="tabpanel">
+        <section id="new-ebooks" class="fade-up mt-20 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden text-center">
                 <div class="absolute right-[-10%] top-[-50%] w-[400px] h-[400px] bg-studio-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
                 <div class="relative z-10">
@@ -641,53 +622,50 @@
                         <i class="fa-solid fa-book-open"></i> JUST RELEASED
                     </span>
                     <h2 class="text-3xl md:text-4xl text-white font-extrabold mb-4 leading-tight">Checkout Our Newly Published E-Books</h2>
-                    <p class="text-white/70 text-sm md:text-base leading-relaxed font-medium max-w-3xl mx-auto mb-8">We are excited to share four newly published e-books from the Tambou Prayer Life Commentary Series to enrich your faith, knowledge, and walk with God. Scroll to right in the selections below to access each e-book.</p>
-                    <div class="relative">
-                        <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 px-1 [&::-webkit-scrollbar]:hidden" style="scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch;">
-                            <a href="minorProphets.html" target="_self" class="group relative block flex-shrink-0 w-32 sm:w-40 md:w-48 snap-start">
-                                <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
-                                    <img src="b1.jpg" alt="Minor Prophets e-book cover" class="w-full h-full object-cover" loading="lazy">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
-                                </div>
-                                <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Minor Prophets</p>
-                            </a>
+                    <p class="text-white/70 text-sm md:text-base leading-relaxed font-medium max-w-3xl mx-auto mb-8">We are excited to share four newly published e-books from the Tambou Prayer Life Commentary Series to enrich your faith, knowledge, and walk with God. Click any of the buttons below to access each e-book.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
+    <a href="minorProphets.html" target="_self" class="group relative block">
+        <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
+            <img src="b1.jpg" alt="Minor Prophets e-book cover" class="w-full h-full object-cover" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
+        </div>
+        <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Minor Prophets</p>
+    </a>
 
-                            <a href="majorProphets.html" target="_self" class="group relative block flex-shrink-0 w-32 sm:w-40 md:w-48 snap-start">
-                                <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
-                                    <img src="21.jpg" alt="Major Prophets e-book cover" class="w-full h-full object-cover" loading="lazy">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
-                                </div>
-                                <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Major Prophets</p>
-                            </a>
+    <a href="majorProphets.html" target="_self" class="group relative block">
+        <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
+            <img src="21.jpg" alt="Major Prophets e-book cover" class="w-full h-full object-cover" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
+        </div>
+        <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Major Prophets</p>
+    </a>
 
-                            <a href="wisdom&Poetic.html" target="_self" class="group relative block flex-shrink-0 w-32 sm:w-40 md:w-48 snap-start">
-                                <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
-                                    <img src="2s.jpg" alt="Wisdom and Poetic Books e-book cover" class="w-full h-full object-cover" loading="lazy">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
-                                </div>
-                                <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Wisdom/Poetic Books</p>
-                            </a>
+    <a href="wisdom&Poetic.html" target="_self" class="group relative block">
+        <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
+            <img src="2s.jpg" alt="Wisdom and Poetic Books e-book cover" class="w-full h-full object-cover" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
+        </div>
+        <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Wisdom/Poetic Books</p>
+    </a>
 
-                            <a href="historicalBooks.html" target="_self" class="group relative block flex-shrink-0 w-32 sm:w-40 md:w-48 snap-start">
-                                <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
-                                    <img src="2.jpg" alt="Historical Books e-book cover" class="w-full h-full object-cover" loading="lazy">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
-                                </div>
-                                <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Historical Books</p>
-                            </a>
-                        </div>
-                        <div class="pointer-events-none absolute right-0 top-0 bottom-4 w-10 bg-gradient-to-l from-black/50 to-transparent md:hidden"></div>
+    <a href="historicalBooks.html" target="_self" class="group relative block">
+        <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg shadow-black/40 ring-1 ring-white/10 group-hover:ring-studio-cyan/60 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.35)]">
+            <img src="2.jpg" alt="Historical Books e-book cover" class="w-full h-full object-cover" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span class="absolute inset-x-0 bottom-0 p-3 text-white text-xs font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read Now</span>
+        </div>
+        <p class="mt-3 text-white/80 text-sm font-semibold text-center group-hover:text-studio-cyan transition-colors">Historical Books</p>
+    </a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- STUDENT RESOURCE CENTER (NEW) -->
-        <section id="student-resources" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="library" role="tabpanel">
+        <section id="student-resources" class="fade-up mt-20 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-amber-400/25 shadow-xl shadow-amber-500/5 relative overflow-hidden">
                 <div class="absolute left-[-10%] top-[-30%] w-[350px] h-[350px] bg-amber-400/10 rounded-full blur-[90px] pointer-events-none"></div>
                 <div class="relative z-10">
@@ -825,22 +803,34 @@
                             </div>
                             <p class="text-[10px] text-white/35 mt-2">DOCX · Size: ~0.3 MB</p>
                         </article>
-
-                      <article data-tags="theology" data-title="Introduction to Christian Theology" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+<article data-tags="language" data-title=" hebrew language 1 BIS 701" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
                             <div class="flex items-center justify-between mb-3">
-                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">THEOLOGY · THEO 101</span>
-                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">INTRODUCTION</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-studio-purple/10 text-studio-purple border border-studio-purple/20">HEBREW · BIS 701</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">INTERMEDIATE</span>
                             </div>
-                            <h3 class="text-white font-extrabold text-base mb-1">Introduction to Christian Theology</h3>
-                            <p class="text-white/55 text-xs mb-2 leading-relaxed"> lecture notes: introduction to Christian theology and its foundational concepts.</p>
-                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future." — Jer. 29:11</p>
+                            <h3 class="text-white font-extrabold text-base mb-1">HEBREW LANGUAGE 1</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Introduction to Intermediate Hebrew.</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"Thy word have I hid in mine heart." — Ps. 119:11</p>
                             <div class="mt-auto flex gap-2">
-                                <a href="INTRO CHRISTIAN THEOLOGY.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
-                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20THEO%20101%20Introduction%20to%20Christian%20Theology%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="MTH HEBREW LANG 1.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Rabbi!%20Please%20share%20BIS%20701%20Hebrew%20Intro%20workbook." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                            <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB </p>
+                        </article>
+                       <article data-tags="theology" data-title="biblical theology" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20">THEOLOGY · THEO 101</span>
+                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">BIBLICAL</span>
+                            </div>
+                            <h3 class="text-white font-extrabold text-base mb-1">BIBLICAL THEOLOGY</h3>
+                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Theological study of the Bible from a biblical perspective.</p>
+                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"Be ready always to give an answer." — 1 Pet. 3:15</p>
+                            <div class="mt-auto flex gap-2">
+                                <a href="BIBLICAL THEOLOGY.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
+                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20THEO%20101%20Biblical%20Theology%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                             </div>
                             <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB · Coming soon</p>
-                        </article>
-
+                        </article> 
                         <article data-tags="theology" data-title="Introduction to Christian Theology" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-[9px] font-bold px-2 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">THEOLOGY · THEO 101</span>
@@ -854,36 +844,6 @@
                                 <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20THEO%20101%20Introduction%20to%20Christian%20Theology%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                             </div>
                             <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB · Coming soon</p>
-                        </article>
-
-                        <article data-tags="theology" data-title="biblical theology" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20">THEOLOGY · THEO 101</span>
-                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">BIBLICAL</span>
-                            </div>
-                            <h3 class="text-white font-extrabold text-base mb-1">BIBLICAL THEOLOGY</h3>
-                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Theological study of the Bible from a biblical perspective.</p>
-                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"Be ready always to give an answer." — 1 Pet. 3:15</p>
-                            <div class="mt-auto flex gap-2">
-                                <a href="BIBLICAL THEOLOGY.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
-                                <a href="https://wa.me/2348165766998?text=Hello%20Dr.%20Tambou!%20Please%20share%20THEO%20101%20Biblical%20Theology%20notes." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                            </div>
-                            <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB · Coming soon</p>
-                        </article>
-
-                        <article data-tags="language" data-title=" hebrew language 1 BIS 701" class="resource-card glass-card rounded-2xl p-5 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col">
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-studio-purple/10 text-studio-purple border border-studio-purple/20">HEBREW · BIS 701</span>
-                                <span class="text-[9px] font-bold px-2 py-1 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">INTERMEDIATE</span>
-                            </div>
-                            <h3 class="text-white font-extrabold text-base mb-1">HEBREW LANGUAGE 1</h3>
-                            <p class="text-white/55 text-xs mb-2 leading-relaxed">Introduction to Intermediate Hebrew.</p>
-                            <p class="text-[11px] italic font-serif text-white/45 mb-4">"Thy word have I hid in mine heart." — Ps. 119:11</p>
-                            <div class="mt-auto flex gap-2">
-                                <a href="MTH HEBREW LANG 1.docx" download onclick="handleResourceDownload(this);" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400/10 hover:bg-amber-400/25 border border-amber-400/40 text-white py-3 rounded-xl font-bold text-xs transition-all"><i class="fa-solid fa-download text-amber-300"></i><span>Download Docx</span></a>
-                                <a href="https://wa.me/2348165766998?text=Hello%20Rabbi!%20Please%20share%20BIS%20701%20Hebrew%20Intro%20workbook." target="_blank" class="w-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="Request via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                            </div>
-                            <p class="text-[10px] text-white/35 mt-2">Docx · Size: ~0.3 MB </p>
                         </article>
 
                     </div>
@@ -911,76 +871,67 @@
         </section>
 
         <!-- MINISTRY JOURNEY TIMELINE -->
-<section id="journey" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
-    <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-purple/20">
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-cyan/10 text-studio-cyan text-[10px] font-bold tracking-wider mb-4 border border-studio-cyan/20">
-            <i class="fa-solid fa-route"></i> MINISTRY JOURNEY
-        </span>
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-            <h2 class="text-3xl md:text-4xl text-white font-extrabold leading-tight">From Ayakoromo to <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Redemption City</span></h2>
-            <div class="verse-card rounded-xl px-4 py-3 max-w-sm">
-                <p class="font-serif italic text-white/85 text-xs">"And I will give you pastors... which shall feed you with knowledge and understanding."</p>
-                <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— JEREMIAH 3:15</p>
+        <section id="journey" class="fade-up mt-20 relative z-20 scroll-mt-24">
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-purple/20">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-studio-cyan/10 text-studio-cyan text-[10px] font-bold tracking-wider mb-4 border border-studio-cyan/20">
+                    <i class="fa-solid fa-route"></i> MINISTRY JOURNEY
+                </span>
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                    <h2 class="text-3xl md:text-4xl text-white font-extrabold leading-tight">From Ayakoromo to <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Redemption City</span></h2>
+                    <div class="verse-card rounded-xl px-4 py-3 max-w-sm">
+                        <p class="font-serif italic text-white/85 text-xs">"And I will give you pastors... which shall feed you with knowledge and understanding."</p>
+                        <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— JEREMIAH 3:15</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6 border-l border-white/10 pl-6">
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Roots · Delta State</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Called from Ayakoromo, Burutu L.G.A.</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Born Izon, raised with a hunger for Scripture that would later earn him the name "Rabbi" among students — and his chosen identity, "The Reborn Ezra."</p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Doctoral Formation · UniPort</p>
+                            <h4 class="text-white font-bold text-sm mt-1">PhD in Religious & Cultural Studies</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">University of Port Harcourt, Rivers State. Specialization in World Religion with deep focus on Biblical Studies (Old Testament), Hebrew and Greek exegesis.</p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Ordination · RCCG</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Ordained Pastor, Redeemed Christian Church of God</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">A deliverance and teaching ministry open to conferences, revivals, youth empowerments, and guest ministrations. <span class="italic font-serif">"How beautiful are the feet of them that preach the gospel of peace." — Rom. 10:15</span></p>
+                        </div>
+                    </div>
+                    <div class="space-y-6 border-l border-white/10 pl-6">
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Academia · Redemption City</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Lecturer & Director of Academic Planning, RCTC</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Training pastors and leaders at the Redeemed Christian Theological College (affiliate of Redeemer's University & University of Ibadan). Teaching Hebrew, Greek, Old Testament, and doctrine.</p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Athletics · National Institute for Sports</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Licensed Coach & Sports Psychologist</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Surulere, Lagos certification. Fusing tactical football coaching with mental-toughness training. <span class="italic font-serif">"Bodily exercise profiteth little: but godliness is profitable unto all things." — 1 Tim. 4:8</span></p>
+                        </div>
+                        <div class="relative timeline-dot">
+                            <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Authorship · Today</p>
+                            <h4 class="text-white font-bold text-sm mt-1">Author, Mentor, Conference Speaker</h4>
+                            <p class="text-white/60 text-xs mt-1 leading-relaxed">Eight+ books and papers, a growing Selar library, free downloads for the Body of Christ, and one-on-one mentorship for students, couples, and athletes.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="space-y-6 border-l border-white/10 pl-6">
-                <div class="relative timeline-dot pl-4">
-                    <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Roots · Delta State</p>
-                    <h4 class="text-white font-bold text-sm mt-1">Called from Ayakoromo, Burutu L.G.A.</h4>
-                    <p class="text-white/60 text-xs mt-1 leading-relaxed">Born Izon, raised with a hunger for Scripture that would later earn him the name "Rabbi" among students — and his chosen identity, "The Reborn Ezra."</p>
-                </div>
-                <div class="relative timeline-dot pl-4">
-                    <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Doctoral Formation · UniPort</p>
-                    <h4 class="text-white font-bold text-sm mt-1">PhD in Religious & Cultural Studies</h4>
-                    <p class="text-white/60 text-xs mt-1 leading-relaxed">University of Port Harcourt, Rivers State. Specialization in World Religion with deep focus on Biblical Studies (Old Testament), Hebrew and Greek exegesis.</p>
-                </div>
-                <div class="relative timeline-dot pl-4">
-                    <p class="text-[10px] font-bold tracking-widest uppercase text-studio-cyan">Ordination · RCCG</p>
-                    <h4 class="text-white font-bold text-sm mt-1">Ordained Pastor, Redeemed Christian Church of God</h4>
-                    <p class="text-white/60 text-xs mt-1 leading-relaxed">A deliverance and teaching ministry open to conferences, revivals, youth empowerments, and guest ministrations. <span class="italic font-serif">"How beautiful are the feet of them that preach the gospel of peace." — Rom. 10:15</span></p>
-                </div>
-            </div>
-            <div class="space-y-6 border-l border-white/10 pl-6">
-                <div class="relative timeline-dot pl-4">
-                    <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Academia · Redemption City</p>
-                    <h4 class="text-white font-bold text-sm mt-1">Lecturer & Director of Academic Planning, RCTC</h4>
-                    <p class="text-white/60 text-xs mt-1 leading-relaxed">Training pastors and leaders at the Redeemed Christian Theological College (affiliate of Redeemer's University & University of Ibadan). Teaching Hebrew, Greek, Old Testament, and doctrine.</p>
-                </div>
-                <div class="relative timeline-dot pl-4">
-                    <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Athletics · National Institute for Sports</p>
-                    <h4 class="text-white font-bold text-sm mt-1">Licensed Coach & Sports Psychologist</h4>
-                    <p class="text-white/60 text-xs mt-1 leading-relaxed">Surulere, Lagos certification. Fusing tactical football coaching with mental-toughness training. <span class="italic font-serif">"Bodily exercise profiteth little: but godliness is profitable unto all things." — 1 Tim. 4:8</span></p>
-                </div>
-                <div class="relative timeline-dot pl-4">
-                    <p class="text-[10px] font-bold tracking-widest uppercase text-studio-purple">Authorship · Today</p>
-                    <h4 class="text-white font-bold text-sm mt-1">Author, Mentor, Conference Speaker</h4>
-                    <p class="text-white/60 text-xs mt-1 leading-relaxed">Eight+ books and papers, a growing Selar library, free downloads for the Body of Christ, and one-on-one mentorship for students, couples, and athletes.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- HOLISTIC SPOTLIGHT -->
-        <section class="fade-up mt-12 relative z-20 spa-view" data-view="discover" role="tabpanel">
+        <section class="fade-up mt-12 relative z-20">
             <div class="grid lg:grid-cols-3 gap-4">
-                <div class="glass-card rounded-3xl p-6 border border-studio-cyan/20 flex flex-col">
-    <i class="fa-solid fa-dumbbell text-studio-cyan text-2xl mb-3"></i>
-    <h3 class="text-white font-extrabold mb-2">For Athletes & Coaches</h3>
-    <p class="text-white/60 text-xs leading-relaxed mb-4">Tactical sessions, fitness plans, match analysis, and psychology: focus, confidence, composure under pressure, and godly discipline.</p>
-    
-    <!-- GALLERY LINK: gallery is now its own tab -->
-    <a href="#/gallery" class="w-full mb-5 inline-flex items-center justify-center gap-2 bg-studio-cyan/10 hover:bg-studio-cyan/20 border border-studio-cyan/30 text-amber-300 py-2.5 rounded-xl font-bold text-xs transition-all group">
-        <i class="fa-solid fa-images group-hover:scale-110 transition-transform"></i> 
-        <span>View Football Gallery</span>
-    </a>
-    
-    <div class="mt-auto">
-        <p class="font-serif italic text-white/80 text-xs">"Know ye not that they which run in a race run all, but one receiveth the prize? So run, that ye may obtain."</p>
-        <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— 1 CORINTHIANS 9:24</p>
-    </div>
-</div>
+                <div class="glass-card rounded-3xl p-6 border border-studio-cyan/20">
+                    <i class="fa-solid fa-dumbbell text-studio-cyan text-2xl mb-3"></i>
+                    <h3 class="text-white font-extrabold mb-2">For Athletes & Coaches</h3>
+                    <p class="text-white/60 text-xs leading-relaxed mb-3">Tactical sessions, fitness plans, match analysis, and psychology: focus, confidence, composure under pressure, and godly discipline.</p>
+                    <p class="font-serif italic text-white/80 text-xs">"Know ye not that they which run in a race run all, but one receiveth the prize? So run, that ye may obtain."</p>
+                    <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— 1 CORINTHIANS 9:24</p>
+                </div>
                 <div class="glass-card rounded-3xl p-6 border border-studio-purple/20">
                     <i class="fa-solid fa-heart text-studio-purple text-2xl mb-3"></i>
                     <h3 class="text-white font-extrabold mb-2">For Couples & Families</h3>
@@ -999,7 +950,7 @@
         </section>
 
         <!-- TESTIMONIES -->
-        <section id="testimonies" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
+        <section id="testimonies" class="fade-up mt-20 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-white/10">
                 <div class="text-center mb-8">
                     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 text-emerald-300 text-[10px] font-bold tracking-wider mb-4 border border-emerald-400/30">
@@ -1029,7 +980,7 @@
         </section>
 
         <!-- FAQ -->
-        <section id="faq" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
+        <section id="faq" class="fade-up mt-20 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/15">
                 <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-white/70 text-[10px] font-bold tracking-wider mb-4 border border-white/10">
                     <i class="fa-solid fa-circle-question text-studio-cyan"></i> COMMON QUESTIONS
@@ -1086,7 +1037,7 @@
         </section>
 
         <!-- CONNECT DOWN ARROW -->
-        <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200 spa-view" data-view="connect" role="tabpanel">
+        <div class="flex justify-center md:hidden w-full pb-12 pt-12 relative z-20 pointer-events-auto fade-up delay-200">
             <a href="#connect" class="group flex flex-col items-center gap-3 opacity-100 hover:opacity-100 transition-opacity duration-300">
                 <div class="w-6 h-10 border-2 border-studio-purple/50 rounded-full flex justify-center pt-2 relative shadow-[0_0_15px_rgba(139,92,246,0.1)] group-hover:border-studio-cyan group-hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 backdrop-blur-sm bg-black/20">
                     <i class="fa-solid fa-angles-down text-studio-cyan text-[30px] animate-bounce"></i>
@@ -1095,7 +1046,7 @@
         </div>
 
         <!-- CONTACT SECTION -->
-        <section id="connect" class="fade-up mt-10 relative z-20 scroll-mt-24 spa-view" data-view="connect" role="tabpanel">
+        <section id="connect" class="fade-up mt-10 relative z-20 scroll-mt-24">
             <div class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden border border-studio-purple/20 shadow-2xl shadow-studio-cyan/5">
                 
                 <div class="absolute top-[-50%] left-[-10%] w-[300px] h-[300px] bg-studio-cyan/10 rounded-full blur-[80px] pointer-events-none"></div>
@@ -1152,72 +1103,6 @@
             </div>
         </section>
         
-        <!-- FOOTBALL GALLERY ROUTE -->
-        <section id="gallery" class="fade-up mt-20 relative z-20 scroll-mt-24 spa-view" data-view="gallery" role="tabpanel">
-            <div class="glass-card rounded-3xl p-6 md:p-12 border border-studio-cyan/20 shadow-xl shadow-studio-cyan/5 relative overflow-hidden">
-                <div class="absolute right-[-10%] top-[-30%] w-[350px] h-[350px] bg-studio-cyan/10 rounded-full blur-[90px] pointer-events-none"></div>
-                <div class="relative z-10">
-                    <span class="section-eyebrow bg-studio-cyan/10 text-studio-cyan border border-studio-cyan/20">
-                        <i class="fa-solid fa-futbol"></i> Sports Ministry · <span id="gallery-count">10 moments</span>
-                    </span>
-                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-4 mb-6">
-                        <h2 class="text-3xl md:text-4xl text-white font-extrabold leading-tight">Football <span class="text-transparent bg-clip-text bg-gradient-to-r from-studio-cyan to-studio-purple">Gallery</span></h2>
-                        <div class="verse-card rounded-xl px-4 py-3 max-w-sm">
-                            <p class="font-serif italic text-white/85 text-xs">"They which run in a race run all... So run, that ye may obtain."</p>
-                            <p class="text-studio-cyan text-[10px] font-bold mt-1 tracking-widest">— 1 CORINTHIANS 9:24</p>
-                        </div>
-                    </div>
-                    <p class="text-white/60 text-xs md:text-sm max-w-3xl leading-relaxed mb-8">Tactical sessions, team training, and mental-toughness coaching with Pastor E.D. Tambou — licensed coach and sports psychologist. Tap any photo to view it fullscreen.</p>
-                    <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                        <button onclick="openLightbox(0)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff1.jpg" onerror="this.onerror=null;this.src='ff1.jpg'" alt="Tactical session on the pitch" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Tactical Session</span>
-                        </button>
-                        <button onclick="openLightbox(1)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff2.jpg" onerror="this.onerror=null;this.src='ff2.jpg'" alt="Team training drill" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Team Training</span>
-                        </button>
-                        <button onclick="openLightbox(2)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff3.jpg" onerror="this.onerror=null;this.src='ff3.jpg'" alt="Coaching moment" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Coaching Moment</span>
-                        </button>
-                        <button onclick="openLightbox(3)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff4.jpg" onerror="this.onerror=null;this.src='ff4.jpg'" alt="Match day focus" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Match Day Focus</span>
-                        </button>
-                        <button onclick="openLightbox(4)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff5.jpg" onerror="this.onerror=null;this.src='ff5.jpg'" alt="On the pitch" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">On The Pitch</span>
-                        </button>
-                        <button onclick="openLightbox(5)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff6.jpg" onerror="this.onerror=null;this.src='ff6.jpg'" alt="Player focus and discipline" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Player Focus</span>
-                        </button>
-                        <button onclick="openLightbox(6)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff7.jpg" onerror="this.onerror=null;this.src='ff7.jpg'" alt="Discipline drill" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Discipline Drill</span>
-                        </button>
-                        <button onclick="openLightbox(7)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff8.jpg" onerror="this.onerror=null;this.src='ff8.jpg'" alt="Strategy review" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Strategy Review</span>
-                        </button>
-                        <button onclick="openLightbox(8)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="ff9.jpg" onerror="this.onerror=null;this.src='ff9.jpg'" alt="Sports ministry outreach" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Sports Ministry</span>
-                        </button>
-                        <button onclick="openLightbox(9)" class="gallery-item relative group aspect-[4/3] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-studio-cyan/50 transition-all duration-300 shadow-lg text-left">
-                            <img src="6.jpg" onerror="this.onerror=null;this.src='6.jpg'" alt="Victory celebration" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 text-white font-bold text-xs tracking-wider">Victory Celebration</span>
-                        </button>
-                    </div>
-                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-black/40 border border-white/10 rounded-2xl p-5">
-                        <p class="text-white/60 text-xs leading-relaxed max-w-xl">Want Coach Tambou for your team or academy? Tactical coaching plus sports psychology — focus, confidence, and godly discipline.</p>
-                        <a href="#/connect" class="shrink-0 inline-flex items-center gap-2 bg-gradient-to-r from-studio-cyan to-studio-purple text-white px-6 py-3 rounded-full font-bold text-xs hover:scale-105 transition-transform"><i class="fa-solid fa-whistle"></i> Book a Session</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- INFINITE CAROUSEL -->
         <section class="mt-20 fade-up delay-200 relative w-full overflow-hidden rounded-2xl glass-card py-6 border border-studio-purple/20 shadow-lg shadow-studio-cyan/5">
             <div class="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0a0a0c] to-transparent z-10 pointer-events-none rounded-l-2xl"></div>
@@ -1274,14 +1159,14 @@
                 <div>
                     <p class="text-[11px] font-bold tracking-widest uppercase text-white/50 mb-4">Explore</p>
                     <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white/65">
-                        <a href="#/discover" class="hover:text-studio-cyan">Discover</a>
-                        <a href="#/library" class="hover:text-studio-cyan">Library & Study</a>
-                        <a href="#/connect" class="hover:text-studio-cyan">Journey & Connect</a>
-                        <a href="#/gallery" class="hover:text-studio-cyan">Gallery</a>
-                        <a href="#/library" class="hover:text-amber-300">Student Resources</a>
-                        <a href="#/connect" class="hover:text-studio-cyan">Testimonies</a>
-                        <a href="#/connect" class="hover:text-studio-cyan">FAQ</a>
-                        <a href="#/connect" class="hover:text-studio-cyan">Contact</a>
+                        <a href="#about-section" class="hover:text-studio-cyan">About</a>
+                        <a href="#services-grid" class="hover:text-studio-cyan">Expertise</a>
+                        <a href="#publications" class="hover:text-studio-cyan">Free Library</a>
+                        <a href="#student-resources" class="hover:text-amber-300">Student Resources</a>
+                        <a href="#journey" class="hover:text-studio-cyan">Journey</a>
+                        <a href="#faq" class="hover:text-studio-cyan">FAQ</a>
+                        <a href="#testimonies" class="hover:text-studio-cyan">Testimonies</a>
+                        <a href="#connect" class="hover:text-studio-cyan">Contact</a>
                     </div>
                 </div>
                 <div>
@@ -1297,7 +1182,7 @@
             </div>
             <div class="border-t border-white/10 mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <p class="text-[11px] text-white/40 font-medium">© 2026 Pastor E.D. Tambou, PhD. All rights reserved. Soli Deo Gloria.</p>
-                <a href="#/discover" class="text-[11px] font-bold text-studio-cyan hover:text-white transition-colors"><i class="fa-solid fa-arrow-up mr-1"></i> Back to top</a>
+                <a href="#top" class="text-[11px] font-bold text-studio-cyan hover:text-white transition-colors"><i class="fa-solid fa-arrow-up mr-1"></i> Back to top</a>
             </div>
         </footer>
     
@@ -1553,103 +1438,6 @@
             renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
         });
         }
-        // SPA hash router: 4 grouped tabs (Discover / Library & Study / Journey & Connect / Gallery)
-        const spaTitles = { discover: 'Discover', library: 'Library & Study', connect: 'Journey & Connect', gallery: 'Football Gallery' };
-        const spaBaseTitle = 'Pastor Dr. Tambou Donatus | Theology, Hebrew & Sports Psychology';
-        function spaRouteFromHash() {
-            let hash = (location.hash || '').replace(/^#\/?/, '').split('?')[0].split('/')[0].toLowerCase().trim();
-            const valid = ['discover', 'library', 'connect', 'gallery'];
-            if (valid.includes(hash)) return hash;
-            // Legacy redirects: old 8-route hashes, tab hashes, and section anchors
-            const legacy = (location.hash || '').replace('#', '').replace(/^\//, '');
-            if (legacy.startsWith('tab-')) {
-                const t = legacy.replace('tab-', '');
-                if (valid.includes(t)) return t;
-                const oldMap = { home: 'discover', about: 'discover', expertise: 'discover', library: 'library', ebooks: 'library', student: 'library', journey: 'connect', contact: 'connect' };
-                if (oldMap[t]) return oldMap[t];
-            }
-            const map = { home: 'discover', about: 'discover', expertise: 'discover', library: 'library', ebooks: 'library', student: 'library', journey: 'connect', contact: 'connect', gallery: 'gallery', 'about-section': 'discover', 'services-grid': 'discover', 'publications': 'library', 'new-ebooks': 'library', 'student-resources': 'library', 'testimonies': 'connect', 'faq': 'connect', 'connect': 'connect', 'top': 'discover', '': 'discover' };
-            if (map[legacy] || map[hash]) return map[legacy] || map[hash];
-            if (!location.hash || location.hash === '#') return 'discover';
-            return null; // unknown -> fallback to discover
-        }
-        function renderSpaRoute() {
-            let route = spaRouteFromHash();
-            if (!route) route = 'discover';
-            const views = document.querySelectorAll('.spa-view');
-            let found = false;
-            views.forEach(v => {
-                const show = v.getAttribute('data-view') === route;
-                if (show) found = true;
-                v.classList.toggle('hidden-view', !show);
-                v.classList.toggle('hidden', !show);
-            });
-            if (!found) route = 'discover';
-            document.querySelectorAll('[data-spa-link]').forEach(a => {
-                const active = a.getAttribute('data-spa-link') === route;
-                a.classList.toggle('active', active);
-                if (a.getAttribute('role') === 'tab') a.setAttribute('aria-selected', active ? 'true' : 'false');
-                if (active) a.setAttribute('aria-current', 'page');
-                else a.removeAttribute('aria-current');
-            });
-            document.title = spaBaseTitle + (spaTitles[route] ? ' | ' + spaTitles[route] : '');
-            const activeViews = document.querySelectorAll('.spa-view[data-view="' + route + '"]');
-            activeViews.forEach((activeView, i) => {
-                activeView.classList.remove('fade-up');
-                void activeView.offsetWidth;
-                activeView.style.animationDelay = Math.min(i * 0.06, 0.3) + 's';
-                activeView.classList.add('fade-up');
-            });
-            window.scrollTo({ top: 0, behavior: 'auto' });
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
-            // Re-trigger counters inside the newly visible view
-            if (typeof observeCounters === 'function') observeCounters();
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!location.hash || location.hash === '#') history.replaceState(null, '', '#/discover');
-            // Normalize legacy hashes to new router format
-            const normalized = spaRouteFromHash();
-            if (normalized && location.hash !== '#/' + normalized) history.replaceState(null, '', '#/' + normalized);
-            renderSpaRoute();
-        });
-        window.addEventListener('hashchange', renderSpaRoute);
-        // Back-to-top visibility
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('back-to-top');
-            if (btn) btn.classList.toggle('show', window.scrollY > 600);
-        }, { passive: true });
-        // Gallery lightbox (sources mirror #gallery-grid order)
-        const galleryImages = [
-            { src: 'ff1.jpg', caption: 'Tactical Session' },
-            { src: 'ff2.jpg', caption: 'Team Training' },
-            { src: 'ff3.jpg', caption: 'Coaching Moment' },
-            { src: 'ff4.jpg', caption: 'Match Day Focus' },
-            { src: 'ff5.jpg', caption: 'On The Pitch' },
-            { src: 'ff6.jpg', caption: 'Player Focus' },
-            { src: 'ff7.jpg', caption: 'Discipline Drill' },
-            { src: 'ff8.jpg', caption: 'Strategy Review' },
-            { src: 'ff9.jpg', caption: 'Sports Ministry' },
-            { src: '6.jpg', caption: 'Provost Cup 2025' }
-        ];
-        let lightboxIndex = 0;
-        function openLightbox(i) {
-            lightboxIndex = (i + galleryImages.length) % galleryImages.length;
-            const item = galleryImages[lightboxIndex];
-            const img = document.getElementById('lightbox-img');
-            img.onerror = () => { img.onerror = null; img.src = 't.jpg'; };
-            img.src = item.src;
-            img.alt = item.caption;
-            document.getElementById('lightbox-caption').innerText = item.caption;
-            document.getElementById('lightbox-counter').innerText = (lightboxIndex + 1) + ' / ' + galleryImages.length;
-            document.getElementById('gallery-lightbox').classList.remove('hidden-lightbox');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            document.getElementById('gallery-lightbox').classList.add('hidden-lightbox');
-            document.body.style.overflow = 'auto';
-        }
-        function stepLightbox(dir) { openLightbox(lightboxIndex + dir); }
         // Tab switching function for publications
         function switchLibraryTab(tabId) {
             const freeDownloadsTab = document.getElementById('tab-free-downloads');
@@ -1734,13 +1522,12 @@
         }
         setInterval(() => rotateVerse(1), 8000);
 
-        // Counters (re-observable when SPA views change)
+        // Counters
+        const counters = document.querySelectorAll('.counter');
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const el = entry.target;
-                    if (el.dataset.counted) return;
-                    el.dataset.counted = '1';
                     const target = parseInt(el.getAttribute('data-target'), 10);
                     let current = 0;
                     const step = Math.max(1, Math.ceil(target / 60));
@@ -1753,12 +1540,7 @@
                 }
             });
         }, { threshold: 0.5 });
-        function observeCounters() {
-            document.querySelectorAll('.counter').forEach(c => {
-                if (!c.dataset.counted) counterObserver.observe(c);
-            });
-        }
-        document.addEventListener('DOMContentLoaded', observeCounters);
+        counters.forEach(c => counterObserver.observe(c));
 
         // Student resources filter + placeholder handler
         let activeTag = 'all';
@@ -1804,26 +1586,7 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
-            const lb = document.getElementById('gallery-lightbox');
-            if (lb && !lb.classList.contains('hidden-lightbox')) {
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowLeft') stepLightbox(-1);
-                if (e.key === 'ArrowRight') stepLightbox(1);
-            }
         });
     </script>
-    <!-- GALLERY LIGHTBOX -->
-    <div id="gallery-lightbox" onclick="if(event.target===this)closeLightbox()" class="hidden-lightbox fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
-        <button onclick="closeLightbox()" aria-label="Close viewer" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-studio-cyan border border-white/20 text-white flex items-center justify-center transition-all"><i class="fa-solid fa-xmark"></i></button>
-        <button onclick="stepLightbox(-1)" aria-label="Previous image" class="absolute left-2 md:left-6 w-11 h-11 rounded-full bg-white/10 hover:bg-studio-cyan border border-white/20 text-white flex items-center justify-center transition-all"><i class="fa-solid fa-chevron-left"></i></button>
-        <button onclick="stepLightbox(1)" aria-label="Next image" class="absolute right-2 md:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-studio-cyan border border-white/20 text-white flex items-center justify-center transition-all"><i class="fa-solid fa-chevron-right"></i></button>
-        <figure class="max-w-4xl w-full text-center">
-            <img id="lightbox-img" src="t.jpg" alt="Gallery image" class="w-full max-h-[75vh] object-contain rounded-2xl border border-white/15 shadow-2xl">
-            <figcaption class="mt-3 flex items-center justify-center gap-3 text-xs font-bold text-white/70"><span id="lightbox-caption">Gallery</span><span class="text-white/30">·</span><span id="lightbox-counter">1 / 10</span></figcaption>
-        </figure>
-    </div>
-
-    <!-- BACK TO TOP -->
-    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-gradient-to-r from-studio-cyan to-studio-purple text-white shadow-2xl flex items-center justify-center hover:scale-110"><i class="fa-solid fa-arrow-up"></i></button>
 </body>
 </html>
